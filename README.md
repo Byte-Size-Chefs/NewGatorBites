@@ -2,4 +2,11 @@
 
 Karl, Kevin, Krisna, Ryan, Fernando
 
-React, Django
+To run (so far, only fron-end)
+```
+cd ./frontend
+npm install
+```
+
+So far,
+Register, login, create post, comment post, upvote post, delete post.
