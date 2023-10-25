@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import Logo1 from "../Image/Logo1.png";
 export default function Homebar(props: { loggedIn: boolean }) {
@@ -48,27 +48,22 @@ export default function Homebar(props: { loggedIn: boolean }) {
   return (
     <div className="flex flex-row justify-between bg-sky-500 p-6">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
-      <img
-      className="rounded-md custom-image"
-      src={prompt.imageUrl}
-      alt={prompt.altText}
-      width="60px" // Set the width
-      height="60px" // Set the height
-      />
-        <span className="font-semibold text-xl tracking-tight" style={{ marginLeft: '8px' }}>
-    GatorBites
-  </span>
+        <img
+          className="rounded-md custom-image"
+          src={prompt.imageUrl}
+          alt={prompt.altText}
+          width="60px" // Set the width
+          height="60px" // Set the height
+        />
+        <span
+          className="font-semibold text-xl tracking-tight"
+          style={{ marginLeft: "8px" }}
+        >
+          GatorBites
+        </span>
       </div>
-      <div className="flex justify-center flex-grow">
-        {/* Search bar */}
-        <div className="flex justify-center w-full px-2 lg:w-auto">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="w-72 px-4 py-2 border rounded-md text-gray-700" // Adjust width here
-          />
-        </div>
-      </div>
+      {/* */}
+
       <div className="flex flex-row justify-end text-sm space-x-4">
         {" "}
         {/* Added space-x-4 for spacing */}
@@ -80,6 +75,7 @@ export default function Homebar(props: { loggedIn: boolean }) {
         >
           Home
         </Link>
+        {/* 
         <Link
           data-cy="search_button"
           to="/posts/search"
@@ -88,6 +84,7 @@ export default function Homebar(props: { loggedIn: boolean }) {
         >
           Search
         </Link>
+        */}
         {loginButton()}
         {createPostButton()}
       </div>
