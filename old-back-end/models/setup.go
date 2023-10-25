@@ -27,7 +27,7 @@ func ConnectDatabase() {
 
 	// DBURL := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", DbUser, DbPassword, DbHost, DbPort, DbName)
 
-	database, err := gorm.Open(sqlite.Open("uforum.db"), &gorm.Config{})
+	database, err := gorm.Open(sqlite.Open("gatorbites.db"), &gorm.Config{})
 
 	if err != nil {
 		panic("Failed to connect to database!")
