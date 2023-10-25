@@ -21,6 +21,9 @@ export default function CreatePost(props: {loggedIn: boolean}) {
     const [categories, setCategories] = useState<Array<Category>>([]);
     const [postAffirm, setPostAffirm] = useState<string>("font-medium tracking-wide text-green-500 text-xs mt-1 ml-2 invisible");
     const [postResponse, setPostResponse] = useState<string>(postRespo);
+    const [selectedImage, setSelectedImage] = useState<File | null>(null);
+    const [previewImage, setPreviewImage] = useState<string | null>(null);
+
     useEffect(() => {
         fetch('http://localhost:8080/categories')
         .then((res) => res.json())
@@ -76,7 +79,22 @@ export default function CreatePost(props: {loggedIn: boolean}) {
             <option key={category.id} value={category.title}>{category.title}</option>
         )
     });
+    const handleImageSelection = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = e.target.files?.[0];
+        if (selectedFile) {
+        setSelectedImage(selectedFile);
+         // Display a preview of the selected image
+        const reader = new FileReader();
+        reader.onload = (event: ProgressEvent<FileReader>) => {
+        if (event.target) {
+        setPreviewImage(event.target.result as string);
+        }
+        };
+        reader.readAsDataURL(selectedFile);
+        }
 
+      };
+      
     return (
         <div className="flex flex-col items-center justify-center mt-1 ">
          <div className="min-w-96 w-2/3 rounded overflow-hidden shadow-lg border-2 border-sky-500 flex flex-col items-center justify-center">
@@ -84,10 +102,23 @@ export default function CreatePost(props: {loggedIn: boolean}) {
             <form onSubmit={handleSubmit}>
                 <input className={postTitleClassName} data-cy="post-title-input" id="title" value={title} type="text" placeholder="Title" onChange={(e) => setTitle(e.target.value)} required/><br/>
                 <textarea className={postBody_class} data-cy="post-body-input" id="body" value={body} placeholder="Body" onChange={(e) => setBody(e.target.value)} required/><br/>
+                
                 <select data-cy="post-category-select" id="category" onChange={(e) => setCategory(e.target.value)} className={selectionClassName} required>
                     <option value="null" disabled selected>Select Category</option>
                     {html_categories}
                 </select>
+                <input
+                type="file" // Add this input for file selection
+                accept="image/*" // Specify the accepted file types (e.g., images)
+                onChange={(e) => handleImageSelection(e)}
+                />
+                            {previewImage && (
+                    <img
+                    src={previewImage}
+                    alt="Selected Image"
+                    className="w-40 h-40 rounded mt-3"
+                    />
+                )}
                 <button className="bg-orange-400 w-full rounded mb-1 overflow-hidden shadow-lg m-2" data-cy="post-submit-button" type="submit">Create</button>
                 <div className={postAffirm}>{postResponse}</div>
             </form>
