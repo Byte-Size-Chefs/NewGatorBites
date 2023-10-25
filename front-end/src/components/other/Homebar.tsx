@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom";
+import  { useState, useEffect } from "react";
 import React from "react";
-
+import Logo1 from "../Image/Logo1.png";
 export default function Homebar(props: { loggedIn: boolean }) {
+  const [prompt, setPrompt] = useState({
+    title: "This Week's Prompt!",
+    imageUrl: Logo1,
+    altText: "Spaghetti",
+  });
   const loginButton = () => {
     if (props.loggedIn === false) {
       return (
@@ -42,7 +48,16 @@ export default function Homebar(props: { loggedIn: boolean }) {
   return (
     <div className="flex flex-row justify-between bg-sky-500 p-6">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
-        <span className="font-semibold text-xl tracking-tight">GatorBites</span>
+      <img
+      className="rounded-md custom-image"
+      src={prompt.imageUrl}
+      alt={prompt.altText}
+      width="60px" // Set the width
+      height="60px" // Set the height
+      />
+        <span className="font-semibold text-xl tracking-tight" style={{ marginLeft: '8px' }}>
+    GatorBites
+  </span>
       </div>
       <div className="flex justify-center flex-grow">
         {/* Search bar */}
