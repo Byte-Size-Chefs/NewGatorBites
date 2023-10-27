@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../routes/Home";
+
 import CreatePost from "../Post/CreatePost";
 import PostView from "../Post/PostView";
 import Login from "../profile/Login";
@@ -13,6 +14,7 @@ import CategoriesPage from "../routes/CategoriesPage";
 
 import WeeklyPrompt from "../Home/WeeklyPrompt";
 import SortByCuisine from "../Home/SortByCuisine";
+import Comp from "../routes/Comp";
 
 export default function Authenticator() {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
@@ -38,6 +40,7 @@ export default function Authenticator() {
           <div className="flex-grow">
             <Routes>
               <Route path="/" element={<Home loggedIn={loggedIn} />} />
+              <Route path="/competition" element={<Comp loggedIn={loggedIn}/>} />
               <Route
                 path="/posts/create"
                 element={<CreatePost loggedIn={loggedIn} />}
