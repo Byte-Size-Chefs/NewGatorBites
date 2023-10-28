@@ -2,7 +2,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from django.core.validators import FileExtensionValidator
 from .utils import get_random_code
+
+def upload_profile_picture(instance, filename):
+    return "avatars/{user}/{filename}".format(user=instance.user, filename=filename)
 
 # Create your models here.
 class Profile(models.Model):
@@ -13,8 +17,7 @@ class Profile(models.Model):
     last_name = models.CharField(max_length=200, blank=True)
     location = models.CharField(max_length=200, blank=True)
     bio = models.TextField(default="no bio set", max_length=300)
-    avatar = models.ImageField(default='avatar.png', upload_to='avatars/')
-    friends = models.ManyToManyField(User, blank=True, related_name='friends')
+    avatar = models.ImageField(default='avatar.png', validators=[FileExtensionValidator(['png', 'jpg', 'jpeg'])], upload_to=upload_profile_picture)
     score = models.DecimalField(max_digits=10, decimal_places=0, default=0)
     friends = models.ManyToManyField(User, blank=True, related_name='friends')
     # friends = models.ManyToManyField('self', blank=True)

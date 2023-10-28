@@ -19,11 +19,13 @@ from rest_framework import routers
 from profiles import views as profile_views
 from posts import views as post_views
 from recipes import views as recipe_views
+from categories import views as category_views
 
 router = routers.DefaultRouter()
 router.register(r'profiles', profile_views.ProfileView, 'profile')
 router.register(r'posts', post_views.PostView, 'post')
 router.register(r'recipes', recipe_views.RecipeView, 'recipe')
+router.register(r'categories', category_views.CategoryView, 'category')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

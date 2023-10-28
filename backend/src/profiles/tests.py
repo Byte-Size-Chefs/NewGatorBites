@@ -5,7 +5,6 @@ from django.urls import reverse
 
 from .models import Profile
 from .views import profile_view, register_request, login_request
-from .forms import ProfileModelForm, NewUserForm
 
 # Create your tests here.
 class AccountTestCase(TestCase):  

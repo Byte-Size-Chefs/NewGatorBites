@@ -3,12 +3,15 @@ from django.db import models
 from profiles.models import Profile
 from django.core.validators import FileExtensionValidator
 
+def upload_recipe_picture(instance, filename):
+    return "recipes/{user}/{filename}".format(user=instance.created_by, filename=filename)
+
 class Recipe(models.Model):
     title = models.CharField(max_length=200)
     ingredients = models.TextField()
     instructions = models.TextField()
-    image = models.ImageField(upload_to='recipes', validators=[FileExtensionValidator(['png', 'jpg', 'jpeg'])], blank=True)
-    created_by = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='recipes')
+    image = models.ImageField(upload_to=upload_recipe_picture, validators=[FileExtensionValidator(['png', 'jpg', 'jpeg'])], blank=True)
+    created_by = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='recipe_creator')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     likes = models.ManyToManyField(Profile, related_name='liked_recipes', blank=True)
