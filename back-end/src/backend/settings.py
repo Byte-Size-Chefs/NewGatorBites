@@ -80,13 +80,16 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+db_dir = os.path.join(BASE_DIR, '..', 'db')
+if not os.path.exists(db_dir):
+    os.makedirs(db_dir)
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(db_dir, 'gatorbites.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -106,6 +109,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+log_dir = os.path.join(BASE_DIR, '..', 'logs')
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -113,7 +120,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',  # You can set the desired log level (e.g., INFO, DEBUG, ERROR).
             'class': 'logging.FileHandler',
-            'filename': 'api_calls.log',  # Specify the log file name and location.
+            'filename': os.path.join(log_dir, 'api_calls.log'),  # Specify the log file name and location.
         },
     },
     'root': {
@@ -151,6 +158,6 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "static_root
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
 
-# CORS_ORIGIN_WHITELIST = [
-#      'http://localhost:3000'
-# ]
+CORS_ORIGIN_WHITELIST = [
+     'http://localhost:3000'
+]
