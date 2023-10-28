@@ -1,3 +1,4 @@
+# recipes/views.py
 import logging
 from rest_framework import viewsets
 from .serializers import RecipeSerializer
@@ -8,6 +9,11 @@ logger = logging.getLogger(__name__)
 class RecipeView(viewsets.ModelViewSet):
     serializer_class = RecipeSerializer
     queryset = Recipe.objects.all()
+    
+    def list(self, request, *args, **kwargs):
+        # Log the API call when all are requested
+        logger.info(f"User {request.user} listed all recipes.")
+        return super().list(request, *args, **kwargs)
 
     def create(self, request, *args, **kwargs):
         # Log the API call when a new recipe is created

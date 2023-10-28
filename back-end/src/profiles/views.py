@@ -10,6 +10,11 @@ logger = logging.getLogger(__name__)
 class ProfileView(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
     queryset = Profile.objects.all()
+    
+    def list(self, request, *args, **kwargs):
+        # Log the API call when all are requested
+        logger.info(f"User {request.user} listed all profiles.")
+        return super().list(request, *args, **kwargs)
 
     def create(self, request, *args, **kwargs):
         # Log the API call when a new profile is created

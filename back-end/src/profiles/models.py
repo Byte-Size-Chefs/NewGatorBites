@@ -11,7 +11,7 @@ def upload_profile_picture(instance, filename):
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    email = models.EmailField(max_length=200, blank=False)
+    # email = models.EmailField(max_length=200, blank=False)
 
     first_name = models.CharField(max_length=200, blank=True)
     last_name = models.CharField(max_length=200, blank=True)
@@ -20,7 +20,7 @@ class Profile(models.Model):
     avatar = models.ImageField(default='avatar.png', validators=[FileExtensionValidator(['png', 'jpg', 'jpeg'])], upload_to=upload_profile_picture)
     score = models.DecimalField(max_digits=10, decimal_places=0, default=0)
     friends = models.ManyToManyField(User, blank=True, related_name='friends')
-    # friends = models.ManyToManyField('self', blank=True)
+    # friends = models.ManyToManyField('self', blank=True, related_name='friends')
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(unique=True, blank=True)

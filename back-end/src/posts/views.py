@@ -1,3 +1,5 @@
+# categories/views.py
+
 import logging
 from django.shortcuts import render
 from rest_framework import viewsets
@@ -9,6 +11,11 @@ logger = logging.getLogger(__name__)
 class PostView(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     queryset = Post.objects.all()
+    
+    def list(self, request, *args, **kwargs):
+        # Log the API call when all are requested
+        logger.info(f"User {request.user} listed all posts.")
+        return super().list(request, *args, **kwargs)
 
     def create(self, request, *args, **kwargs):
         # Log the API call when a new post is created
