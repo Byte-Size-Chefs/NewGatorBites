@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'profiles',
-    'categories',
+    'tags',
     'recipes',
     'posts',
 ]

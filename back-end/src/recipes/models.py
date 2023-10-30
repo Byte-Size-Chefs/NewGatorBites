@@ -1,7 +1,7 @@
 # recipes/models.py
 from django.db import models
 from profiles.models import Profile
-from categories.models import Category
+from tags.models import Tag
 from django.core.validators import FileExtensionValidator
 
 def upload_recipe_picture(instance, filename):
@@ -13,7 +13,7 @@ class Recipe(models.Model):
     instructions = models.TextField()
     image = models.ImageField(upload_to=upload_recipe_picture, validators=[FileExtensionValidator(['png', 'jpg', 'jpeg'])], blank=True)
     creator = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='creator')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category')
+    tag = models.ManyToManyField(Tag, related_name='tags')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     likes = models.ManyToManyField(Profile, related_name='liked_recipes', blank=True)

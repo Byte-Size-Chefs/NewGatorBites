@@ -1,4 +1,4 @@
-# categories/views.py
+# tags/views.py
 
 import logging
 from django.shortcuts import render
