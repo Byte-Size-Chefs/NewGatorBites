@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import spaguettiPicture from "../Image/spaguetti.jpg";
+import { Link } from 'react-router-dom';
 
 const WeeklyPrompt: React.FC = () => {
   const [prompt, setPrompt] = useState({
@@ -22,9 +23,11 @@ const WeeklyPrompt: React.FC = () => {
           />
         </div>
         <div className="flex justify-center mt-4">
+        <Link to="/competition">
           <button className="bg-orange-400 text-black px-4 py-2 rounded-md">
-            Check out the competition
+           Check out the competition
           </button>
+        </Link>
         </div>
       </div>
     </div>

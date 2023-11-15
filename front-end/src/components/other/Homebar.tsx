@@ -48,33 +48,34 @@ export default function Homebar(props: { loggedIn: boolean }) {
   return (
     <div className="flex flex-row justify-between bg-sky-500 p-6">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
+      <a href="/" style={{ display: "flex", alignItems: "center" }}>
         <img
-          className="rounded-md custom-image"
-          src={prompt.imageUrl}
-          alt={prompt.altText}
-          width="60px" // Set the width
-          height="60px" // Set the height
+        className="rounded-md custom-image"
+        src={prompt.imageUrl}
+        alt={prompt.altText}
+        width="60px"
+        height="60px"
         />
-        <span
-          className="font-semibold text-xl tracking-tight"
-          style={{ marginLeft: "8px" }}
-        >
-          GatorBites
+        <span className="font-semibold text-xl tracking-tight" style={{ marginLeft: "8px" }}>
+        GatorBites
         </span>
+      </a>
       </div>
       {/* */}
 
       <div className="flex flex-row justify-end text-sm space-x-4">
          {" "}
         {/* Added space-x-4 for spacing */}
-        <Link
+        {/*<Link
           data-cy="home-button"
           to="/"
           className="block mt-4 lg:inline-block lg:mt-0 text-sky-200 hover:text-white"
           data-testid="HomeBtn"
         >
           Home
+          
         </Link>
+        */}
         {/* 
         <Link
           data-cy="search_button"
