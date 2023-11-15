@@ -99,9 +99,10 @@ export default function Home(props: { loggedIn: boolean }) {
         </div>
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-4 right-1/4 mr-[-90px] bg-blue-500 text-white p-2 rounded hover:scale-105 duration-500"
+          className="fixed bottom-4 right-1/4 mr-[-90px] bg-blue-500 text-white rounded-full hover:scale-105 duration-500 flex items-center justify-center"
+          style={{ width: "40px", height: "40px", padding: "5px" }}
         >
-          Scroll to Top
+          ↑
         </button>
         {/* This is the events and categories
         <div className="col-span-4 h-full overflow-y-auto">
