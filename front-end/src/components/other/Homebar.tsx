@@ -65,7 +65,7 @@ export default function Homebar(props: { loggedIn: boolean }) {
       {/* */}
 
       <div className="flex flex-row justify-end text-sm space-x-4">
-        {" "}
+         {" "}
         {/* Added space-x-4 for spacing */}
         <Link
           data-cy="home-button"
