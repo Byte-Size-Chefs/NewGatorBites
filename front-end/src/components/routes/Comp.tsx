@@ -97,7 +97,6 @@ export default function Comp(props: { loggedIn: boolean }) {
           </div>
           <div className="grid gap-y-1">{html_events}</div>
         </div>
-       
       </div>
       <br />
     </div>

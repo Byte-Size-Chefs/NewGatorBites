@@ -12,7 +12,7 @@ export default function Homebar(props: { loggedIn: boolean }) {
     if (props.loggedIn === false) {
       return (
         <Link data-cy="login-button" to="/profile/login" data-testid="LogInBtn">
-          <div className="block mt-4 lg:inline-block lg:mt-0 text-sky-200 hover:text-white">
+          <div className="block mt-4 lg:inline-block lg:mt-0 text-sky-200 hover:text-white mr-4">
             Login
           </div>
         </Link>
@@ -21,7 +21,7 @@ export default function Homebar(props: { loggedIn: boolean }) {
       console.log("token: " + localStorage.getItem("token"));
       return (
         <Link data-cy="profile-button" to="/profile">
-          <div className="block mt-4 lg:inline-block lg:mt-0 text-sky-200 hover:text-white">
+          <div className="block mt-4 lg:inline-block lg:mt-0 text-sky-200 hover:text-white mr-4">
             Profile
           </div>
         </Link>
@@ -46,25 +46,28 @@ export default function Homebar(props: { loggedIn: boolean }) {
   };
 
   return (
-    <div className="flex flex-row justify-between bg-sky-500 p-6">
+    <div className="flex flex-row justify-between bg-sky-500 p-2">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
-      <a href="/" style={{ display: "flex", alignItems: "center" }}>
-        <img
-        className="rounded-md custom-image"
-        src={prompt.imageUrl}
-        alt={prompt.altText}
-        width="60px"
-        height="60px"
-        />
-        <span className="font-semibold text-xl tracking-tight" style={{ marginLeft: "8px" }}>
-        GatorBites
-        </span>
-      </a>
+        <a href="/" style={{ display: "flex", alignItems: "center" }}>
+          <img
+            className="rounded-md custom-image"
+            src={prompt.imageUrl}
+            alt={prompt.altText}
+            width="60px"
+            height="60px"
+          />
+          <span
+            className="font-semibold text-xl tracking-tight"
+            style={{ marginLeft: "8px" }}
+          >
+            GatorBites
+          </span>
+        </a>
       </div>
       {/* */}
 
-      <div className="flex flex-row justify-end text-sm space-x-4">
-         {" "}
+      <div className="flex flex-row justify-end items-center text-sm space-x-2">
+        {" "}
         {/* Added space-x-4 for spacing */}
         {/*<Link
           data-cy="home-button"
@@ -86,8 +89,8 @@ export default function Homebar(props: { loggedIn: boolean }) {
           Search
         </Link>
         */}
-        {loginButton()}
         {createPostButton()}
+        {loginButton()}
       </div>
     </div>
   );

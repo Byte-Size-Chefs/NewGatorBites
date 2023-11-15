@@ -97,7 +97,13 @@ export default function Home(props: { loggedIn: boolean }) {
           </div>
           <div className="grid gap-y-1">{html_recents}</div>
         </div>
-        {/* 
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="fixed bottom-4 right-1/4 mr-[-90px] bg-blue-500 text-white p-2 rounded hover:scale-105 duration-500"
+        >
+          Scroll to Top
+        </button>
+        {/* This is the events and categories
         <div className="col-span-4 h-full overflow-y-auto">
           <div data-cy="events-tab" className="text-center text-xl font-bold">
             Events
