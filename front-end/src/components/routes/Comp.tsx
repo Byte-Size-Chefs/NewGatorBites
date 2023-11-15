@@ -4,7 +4,7 @@ import { Category } from "../types/Category";
 import PostCard from "../Post/PostCard";
 import { Link } from "react-router-dom";
 
-export default function Home(props: { loggedIn: boolean }) {
+export default function Comp(props: { loggedIn: boolean }) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [categories, setCategories] = useState<Array<Category>>([]);
 
@@ -92,35 +92,11 @@ export default function Home(props: { loggedIn: boolean }) {
     <div className="flex flex-col overflow-hidden h-full p-2">
       <div className="max-w-7xl mx-auto grid grid-cols-12 gap-2 h-full overflow-hidden">
         <div className="col-start-4 col-span-6 h-full overflow-y-auto">
-          <div data-cy="recents-tab" className="text-center text-xl font-bold">
-            Feed
-          </div>
-          <div className="grid gap-y-1">{html_recents}</div>
-        </div>
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-4 right-1/4 mr-[-90px] bg-blue-500 text-white rounded-full hover:scale-105 duration-500 flex items-center justify-center"
-          style={{ width: "40px", height: "40px", padding: "5px" }}
-        >
-          ↑
-        </button>
-        {/* This is the events and categories
-        <div className="col-span-4 h-full overflow-y-auto">
           <div data-cy="events-tab" className="text-center text-xl font-bold">
             Events
           </div>
           <div className="grid gap-y-1">{html_events}</div>
         </div>
-        <div className="col-span-4 h-full overflow-y-auto">
-          <div
-            data-cy="categories-tab"
-            className="text-center text-xl font-bold"
-          >
-            Categories
-          </div>
-          <div className="grid gap-y-1">{html_categories}</div>
-        </div>
-        */}
       </div>
       <br />
     </div>

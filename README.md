@@ -9,4 +9,4 @@ npm install
 ```
 
 So far,
-Register, login, create post, comment post, upvote post, delete post.
+Register, login, create post, comment post, upvote post, delete post and competition page.
