@@ -1,6 +1,10 @@
 package controllers
 
 import (
+	"context"
+	"fmt"
+	"log"
+	"mime/multipart"
 	"net/http"
 
 	"cen/backend/models"
@@ -8,19 +12,36 @@ import (
 
 	"strings"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/feature/s3/manager"
+	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/gin-gonic/gin"
 )
 
 type CreatePostInput struct {
-	Title    string `json:"title" binding:"required"`
-	Body     string `json:"body" binding:"required"`
-	Category string `json:"category" binding:"required"`
+	Title    string                `form:"title"`
+	Body     string                `form:"body"`
+	Category string                `form:"category"`
+	Image    *multipart.FileHeader `form:"image"`
 }
 
 type UpdatePostInput struct {
 	Title    string `json:"title"`
 	Body     string `json:"body"`
 	Category string `json:"category" binding:"required"`
+}
+
+func initS3Client() *manager.Uploader {
+	cfg, err := config.LoadDefaultConfig(context.TODO())
+	if err != nil {
+		log.Fatalf("error: %v", err)
+	}
+
+	client := s3.NewFromConfig(cfg)
+	uploader := manager.NewUploader(client)
+
+	return uploader
 }
 
 func GetPosts(c *gin.Context) {
@@ -69,18 +90,62 @@ func CreatePost(c *gin.Context) {
 	}
 	var username = u.Username
 
-	var post_input CreatePostInput
-	if err := c.ShouldBindJSON(&post_input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	var postInput CreatePostInput
+	log.Println(postInput.Title, postInput.Body, postInput.Category)
+	fmt.Println(postInput.Title, postInput.Body, postInput.Category)
+
+	if err := c.ShouldBind(&postInput); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to bind JSON", "details": err.Error()})
 		return
 	}
 
-	if err := models.DB.Find(&models.Category{}, "title = ?", post_input.Category).Error; err != nil {
+	if err := models.DB.Find(&models.Category{}, "title = ?", postInput.Category).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Category not found!"})
 		return
 	}
 
-	post := models.Post{Title: post_input.Title, Body: post_input.Body, Category: post_input.Category, User: username, Likes: "", Dislikes: "", NetRating: 0}
+	// Upload the image to S3
+	uploader := initS3Client()
+	file, err := c.FormFile("image")
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to upload image"})
+		return
+	}
+
+	f, openErr := file.Open()
+	if openErr != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to open uploaded file"})
+		return
+	}
+
+	result, uploadErr := uploader.Upload(context.TODO(), &s3.PutObjectInput{
+		Bucket: aws.String("foodimagekarl"),
+		Key:    aws.String(file.Filename),
+		Body:   f, // Use the file content as the body
+		ACL:    "public-read",
+	})
+
+	if uploadErr != nil {
+		// Log the specific error details
+		fmt.Println("S3 Upload Error:", uploadErr)
+
+		// Respond with an error message
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to upload image to S3"})
+		return
+	}
+
+	// Create a new post with image information
+	post := models.Post{
+		Title:     postInput.Title,
+		Body:      postInput.Body,
+		Category:  postInput.Category,
+		User:      username,
+		ImageURL:  result.Location, // Store the S3 URL in your database
+		Likes:     "",
+		Dislikes:  "",
+		NetRating: 0,
+	}
+
 	models.DB.Create(&post)
 
 	c.JSON(http.StatusOK, gin.H{"data": post})

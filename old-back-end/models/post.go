@@ -9,5 +9,6 @@ type Post struct {
 	Likes     string `json:"likes"`
 	Dislikes  string `json:"dislikes"`
 	NetRating int    `json:"netRating"` // netRating = likes.length - dislikes.length //may become unsigned int
-	//Comment  []Comment `json:"comment" gorm:"foreignkey:ID"`
+	ImageUrl  string `json:"imageUrl"`  // Add this field to store the image URL
+	// Comment  []Comment `json:"comment" gorm:"foreignkey:ID"`
 }
