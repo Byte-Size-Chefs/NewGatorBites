@@ -140,7 +140,7 @@ func CreatePost(c *gin.Context) {
 		Body:      postInput.Body,
 		Category:  postInput.Category,
 		User:      username,
-		ImageURL:  result.Location, // Store the S3 URL in your database
+		ImageUrl:  result.Location, // Store the S3 URL in your database
 		Likes:     "",
 		Dislikes:  "",
 		NetRating: 0,
