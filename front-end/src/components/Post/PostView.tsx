@@ -41,14 +41,15 @@ export default function PostView() {
                 <div className="relative min-w-96 w-2/3 rounded overflow-hidden shadow-lg border-2 border-sky-500">
                     <div className="m-3">
                         {/* Display the image */}
-                        
-                            <img
-                                src={post.imageUrl}
-                                alt="Post Image"
-                                className="rounded-md mb-3"
-                                style={{ maxWidth: '100%', height: 'auto' }}
-                            />
-                        
+                        {/*
+                        <div className='my-3' style={{ width: '100%', maxHeight: '300px', overflow: 'hidden' }}>
+                        <img
+                            src={post.imageUrl}
+                            className='rounded-md object-cover w-full h-full'
+                            alt={post.title}
+                        />
+                        </div>
+                        */}
                         <div className="text-xl font-sans font-bold m-1">
                             {post.title}
                         </div>
@@ -58,6 +59,13 @@ export default function PostView() {
                         <div className="text-lg font-sans italic inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
                             {post.category}
                         </div>
+                    </div>
+                    <div className='my-3 flex items-center justify-center'>
+                    <img
+                        src={post.imageUrl}
+                        className='rounded-md object-cover w-1/2 h-auto'
+                        alt={post.title}
+                    />
                     </div>
                     <div className="text-lg font-sans ml-3">{post.body}</div>
                     <br />

@@ -79,34 +79,39 @@ export default function PostCard(props: { post: Post; color: string }) {
   console.log(props.post.imageUrl);
   const post_url = '/posts/' + props.post.id;
   return (
-    <div key={props.post.id} className={`rounded shadow-lg m-2 border-2 ${props.color}`}>
+    <div
+      key={props.post.id}
+      className={`rounded shadow-lg m-2 border-2 ${props.color}`}
+>
       <div className='relative m-2'>
-        <div>
-          <React.Fragment>
-            <Link data-cy={`post-${props.post.title}`} to={post_url}>
-              <p className='url_styling text-lg font-semibold w-5/6'>{props.post.title}</p>
-            </Link>
-          </React.Fragment>
+        <Link data-cy={`post-${props.post.title}`} to={post_url}>
+          <p className='url_styling text-lg font-semibold w-5/6'>{props.post.title}</p>
+        </Link>
+        <span className='text-sm text-gray-500'> made by {props.post.user}</span>
+        <div className='my-3' style={{ width: '100%', maxHeight: '300px', overflow: 'hidden' }}>
+          <img
+            src={props.post.imageUrl}
+            className='rounded-md object-cover w-full h-full'
+            alt={props.post.title}
+          />
         </div>
-        
-          <div className='my-3'>
-            <img
-              src={props.post.imageUrl}
-              className='rounded-md'
-              style={{ maxWidth: '100%', height: 'auto' }}
-            />
-          </div>
-        
+
+        {/* 
         <div>
           <p className='font-light w-5/6'>{props.post.body.slice(0, 50) + '...'}</p>
         </div>
+        */}
         <div className='absolute top-0 right-0'>
           {upvotes}
           <button onClick={() => handleUpvote()}>⬆</button>
           <button onClick={() => handleDownvote()}>⬇</button>
         </div>
+
+        {/* 
         <div className='absolute bottom-0 right-0 font-thin italic'>{props.post.user}</div>
+        */}
       </div>
     </div>
   );
-}
+};
+
