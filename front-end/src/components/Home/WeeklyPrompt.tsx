@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const WeeklyPrompt: React.FC = () => {
   const [prompt, setPrompt] = useState({
-    title: "This Week's Prompt!",
+    title: "This Week's Prompt: Pasta!",
     imageUrl: spaguettiPicture,
     altText: "Spaghetti",
   });
