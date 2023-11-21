@@ -4,184 +4,177 @@ import { Category } from "../types/Category";
 import authService from "../../services/auth.service";
 
 type post_input = {
-    title: string;
-    body: string;
-    category: string;
-    image: File | null;
+  title: string;
+  body: string;
+  category: string;
+  image: File | null;
 };
 
 const postBody_class = "text-sm text-gray-base w-96 border rounded m-2";
-const postTitleClassName =
-    "text-sm text-gray-base w-96 mr-3 py-5 px-11 h-2 border border-gray-200 rounded mb-2 m-2";
+const postTitleClassName = "text-sm text-gray-base w-96 border rounded m-2";
 const selectionClassName =
-    "inline-flex w-2/3 m-2 justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold w-36 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50";
+  "inline-flex w-2/3 m-2 justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold w-36 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50";
 const postRespo = "Post Submitted!";
 export default function CreatePost(props: { loggedIn: boolean }) {
-    const [title, setTitle] = useState<string>("");
-    const [body, setBody] = useState<string>("");
-    const [category, setCategory] = useState<string>("");
-    const [categories, setCategories] = useState<Array<Category>>([]);
-    const [postAffirm, setPostAffirm] = useState<string>(
-        "font-medium tracking-wide text-green-500 text-xs mt-1 ml-2 invisible"
+  const [title, setTitle] = useState<string>("");
+  const [body, setBody] = useState<string>("");
+  const [category, setCategory] = useState<string>("");
+  const [categories, setCategories] = useState<Array<Category>>([]);
+  const [postAffirm, setPostAffirm] = useState<string>(
+    "font-medium tracking-wide text-green-500 text-xs mt-1 ml-2 invisible"
+  );
+  const [postResponse, setPostResponse] = useState<string>(postRespo);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/categories")
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+        let category_data: Category[] = json.data;
+        setCategories(category_data);
+      });
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(category);
+    setPostResponse(postRespo);
+    setPostAffirm(
+      "font-medium tracking-wide text-green-500 text-xs mt-1 ml-2 invisible"
     );
-    const [postResponse, setPostResponse] = useState<string>(postRespo);
-    const [selectedImage, setSelectedImage] = useState<File | null>(null);
-    const [previewImage, setPreviewImage] = useState<string | null>(null);
+    const token = authService.getToken();
+    if (category === "") {
+      setPostResponse("Please select a category");
+      setPostAffirm(
+        " font-medium tracking-wide text-red-500 text-xs mt-1 ml-2 visible"
+      );
+    }
+    if (token !== null) {
+      const post: post_input = {
+        title: title,
+        body: body,
+        category: category,
+        image: selectedImage,
+      };
 
-    useEffect(() => {
-        fetch("http://localhost:8080/categories")
-            .then((res) => res.json())
-            .then((json) => {
-                console.log(json);
-                let category_data: Category[] = json.data;
-                setCategories(category_data);
-            });
-    }, []);
+      const formData = new FormData();
+      formData.append("title", post.title);
+      formData.append("body", post.body);
+      formData.append("category", post.category);
+      if (post.image) {
+        formData.append("image", post.image, post.image.name);
+      }
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        console.log(category);
-        setPostResponse(postRespo);
-        setPostAffirm(
-            "font-medium tracking-wide text-green-500 text-xs mt-1 ml-2 invisible"
-        );
-        const token = authService.getToken();
-        if (category === "") {
-            setPostResponse("Please select a category");
-            setPostAffirm(
-                " font-medium tracking-wide text-red-500 text-xs mt-1 ml-2 visible"
-            );
-        }
-        if (token !== null) {
-            const post: post_input = {
-                title: title,
-                body: body,
-                category: category,
-                image: selectedImage,
-            };
+      console.log(formData);
+      const headers = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      };
 
-            const formData = new FormData();
-            formData.append("title", post.title);
-            formData.append("body", post.body);
-            formData.append("category", post.category);
-            if (post.image) {
-                formData.append("image", post.image, post.image.name);
-            }
+      axios
+        .post("http://localhost:8080/user/createpost", formData, headers)
+        .then((res) => {
+          console.log(res);
+          setPostAffirm(
+            " font-medium tracking-wide text-green-500 text-xs mt-1 ml-2 visible"
+          );
+          setTitle("");
+          setBody("");
+          setCategory("");
+          setPreviewImage(null);
+        });
+    } else {
+      console.log("Not logged in");
+    }
+  };
 
-
-            console.log(formData);
-            const headers = {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "multipart/form-data",
-                },
-            };
-
-            axios
-                .post("http://localhost:8080/user/createpost", formData, headers)
-                .then((res) => {
-                    console.log(res);
-                    setPostAffirm(
-                        " font-medium tracking-wide text-green-500 text-xs mt-1 ml-2 visible"
-                    );
-                    setTitle("");
-                    setBody("");
-                    setCategory("");
-                    setPreviewImage(null);
-                });
-        } else {
-            console.log("Not logged in");
-        }
-    };
-    
-
-    const html_categories = categories.map((category, i) => {
-        return (
-            <option key={category.id} value={category.title}>
-                {category.title}
-            </option>
-        );
-    });
-    const handleImageSelection = (
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        const selectedFile = e.target.files?.[0];
-        if (selectedFile) {
-            setSelectedImage(selectedFile);
-            // Display a preview of the selected image
-            const reader = new FileReader();
-            reader.onload = (event: ProgressEvent<FileReader>) => {
-                if (event.target) {
-                    setPreviewImage(event.target.result as string);
-                }
-            };
-            reader.readAsDataURL(selectedFile);
-        }
-    };
-
+  const html_categories = categories.map((category, i) => {
     return (
-        <div className="pt-20 flex flex-col items-center justify-center mt-1 ">
-            <div className="min-w-96 w-2/3 rounded overflow-hidden shadow-lg border-2 border-sky-500 flex flex-col items-center justify-center">
-                <div className="text-xl font-sans font-bold">
-                    Create New Post!
-                </div>
-                <form onSubmit={handleSubmit}>
-                    <input
-                        className={postTitleClassName}
-                        data-cy="post-title-input"
-                        id="title"
-                        value={title}
-                        type="text"
-                        placeholder="Title"
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                    />
-                    <br />
-                    <textarea
-                        className={postBody_class}
-                        data-cy="post-body-input"
-                        id="body"
-                        value={body}
-                        placeholder="Body"
-                        onChange={(e) => setBody(e.target.value)}
-                        required
-                    />
-                    <br />
-
-                    <select
-                        data-cy="post-category-select"
-                        id="category"
-                        onChange={(e) => setCategory(e.target.value)}
-                        className={selectionClassName}
-                        required
-                    >
-                        <option value="null" disabled selected>
-                            Select Category
-                        </option>
-                        {html_categories}
-                    </select>
-                    <input
-                        type="file" // Add this input for file selection
-                        accept="image/*" // Specify the accepted file types (e.g., images)
-                        onChange={(e) => handleImageSelection(e)}
-                    />
-                    {previewImage && (
-                        <img
-                            src={previewImage}
-                            alt="Selected Image"
-                            className="w-40 h-40 rounded mt-3"
-                        />
-                    )}
-                    <button
-                        className="bg-orange-400 w-full rounded mb-1 overflow-hidden shadow-lg m-2"
-                        data-cy="post-submit-button"
-                        type="submit"
-                    >
-                        Create
-                    </button>
-                    <div className={postAffirm}>{postResponse}</div>
-                </form>
-            </div>
-        </div>
+      <option key={category.id} value={category.title}>
+        {category.title}
+      </option>
     );
+  });
+  const handleImageSelection = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    if (selectedFile) {
+      setSelectedImage(selectedFile);
+      // Display a preview of the selected image
+      const reader = new FileReader();
+      reader.onload = (event: ProgressEvent<FileReader>) => {
+        if (event.target) {
+          setPreviewImage(event.target.result as string);
+        }
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  };
+
+  return (
+    <div className="pt-20 flex flex-col items-center justify-center mt-1 ">
+      <div className="min-w-96 w-2/3 rounded overflow-hidden shadow-lg border-2 border-sky-500 flex flex-col items-center justify-center">
+        <div className="text-xl font-sans font-bold">Create New Post!</div>
+        <form onSubmit={handleSubmit}>
+          <input
+            className={postTitleClassName}
+            data-cy="post-title-input"
+            id="title"
+            value={title}
+            type="text"
+            placeholder="Title"
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
+          <br />
+          <textarea
+            className={postBody_class}
+            data-cy="post-body-input"
+            id="body"
+            value={body}
+            placeholder="Body"
+            onChange={(e) => setBody(e.target.value)}
+            required
+          />
+          <br />
+
+          <select
+            data-cy="post-category-select"
+            id="category"
+            onChange={(e) => setCategory(e.target.value)}
+            className={selectionClassName}
+            required
+          >
+            <option value="null" disabled selected>
+              Select Category
+            </option>
+            {html_categories}
+          </select>
+          <input
+            type="file" // Add this input for file selection
+            accept="image/*" // Specify the accepted file types (e.g., images)
+            onChange={(e) => handleImageSelection(e)}
+          />
+          {previewImage && (
+            <img
+              src={previewImage}
+              alt="Selected Image"
+              className="w-40 h-40 rounded mt-3"
+            />
+          )}
+          <button
+            className="bg-orange-400 w-full rounded mb-1 overflow-hidden shadow-lg m-2"
+            data-cy="post-submit-button"
+            type="submit"
+          >
+            Create
+          </button>
+          <div className={postAffirm}>{postResponse}</div>
+        </form>
+      </div>
+    </div>
+  );
 }

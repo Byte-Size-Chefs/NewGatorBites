@@ -24,18 +24,12 @@ export default function Mex(props: { loggedIn: boolean }) {
   }, []);
 
   // Currently uses the same html as the posts, but will be changed to display posts in the event category
-  const html_events = posts.map((post, i) => {
-    let outline_color;
-    if (i % 2 === 0) {
-      outline_color = "border-sky-500";
-    } else {
-      outline_color = "border-orange-500";
-    }
+  const html_events = [...posts].reverse().map((post, i) => {
+    let outline_color = i % 2 === 0 ? "border-sky-500" : "border-orange-500";
     if (post.category === "Mexican") {
       return <PostCard post={post} color={outline_color} />;
-    } else {
-      return null;
     }
+    return null;
   });
 
   const html_categories = categories.map((category, i) => {
