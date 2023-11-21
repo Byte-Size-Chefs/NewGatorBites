@@ -37,7 +37,7 @@ export default function PostView() {
     }
     else {
         return (
-            <div className="flex flex-col items-center justify-center mt-1">
+            <div className="pt-20 flex flex-col items-center justify-center mt-1">
                 <div className="relative min-w-96 w-2/3 rounded overflow-hidden shadow-lg border-2 border-sky-500">
                     <div className="m-3">
                         {/* Display the image */}
