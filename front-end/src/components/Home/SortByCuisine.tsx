@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Category } from "../types/Category";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const SortByCuisine: React.FC = () => {
+  const location = useLocation();
   const [prompt, setPrompt] = useState({
     title: "Sort By Cuisine",
     imageUrl: "path-to-spaghetti-image.jpg",
     altText: "Spaghetti",
   });
+
+  // Check if the current route is "/competition"
+  const isCompetitionRoute = location.pathname === "/competition";
+
+  // Render the component only if it's not the competition route
+  if (isCompetitionRoute) {
+    return null; // or return a different component, message, etc.
+  }
 
   return (
     <div className="pt-20 bg-white-900 p-4 rounded-md shadow flex flex-col justify-between w-full h-full">

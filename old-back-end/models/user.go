@@ -15,6 +15,7 @@ type User struct {
 	Username    string `gorm:"size:255;not null;" json:"username"`
 	Password    string `gorm:"size:255;not null;" json:"password"`
 	Email       string `gorm:"size:255;not null;" json:"email"`
+	ImageUrl    string `gorm:"size:255;" json:"image_url"`
 	IsAdmin     bool   `json:"is_admin"`
 	UpvoteCount int    `json:"upvote_count"`
 }
@@ -73,6 +74,16 @@ func (u *User) SaveUser() (*User, error) {
 
 	var err error
 	err = DB.Create(&u).Error
+	if err != nil {
+		return &User{}, err
+	}
+	return u, nil
+}
+
+func (u *User) UpdateImage() (*User, error) {
+
+	var err error
+	err = DB.Save(&u).Error
 	if err != nil {
 		return &User{}, err
 	}

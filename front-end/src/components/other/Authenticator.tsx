@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route,  } from "react-router-dom";
 import Home from "../routes/Home";
 
 import CreatePost from "../Post/CreatePost";
@@ -39,7 +39,7 @@ export default function Authenticator() {
         <div className="flex flex-grow">
           <div className="w-80">
             {" "}
-            <SortByCuisine />
+            <SortByCuisine  />
           </div>
 
           <div className="flex-grow">

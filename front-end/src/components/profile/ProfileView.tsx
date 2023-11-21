@@ -58,21 +58,28 @@ export default function ProfileView(props: { loggedIn: boolean, setLoggedIn: Fun
 
     const handleImageUpload = async () => {
         try {
+            const token = authService.getToken();
+    
+            if (!token) {
+                console.error("Token is missing");
+                return;
+            }
+    
             const formData = new FormData();
             formData.append("image", selectedImage as Blob);
-
+    
             // Send a request to the backend to upload the image
-            const response = await axios.post("http://localhost:8080/user/uploadImage", formData, {
+            const response = await axios.post("http://localhost:8080/user/updateprofilepicture", formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    // Add any necessary authorization headers
-                }
+                    Authorization: `Bearer ${token}`, // Include the token in the headers
+                },
             });
-
+    
             // Update the user's profile with the new image URL
             // This assumes that the backend returns the image URL in the response
             setPreviewImage(response.data.imageUrl);
-
+    
             // Optionally, you can update the user's profile in the database as well
             // This would depend on your backend implementation
             // Example: await updateProfile({ imageUrl: response.data.imageUrl });
@@ -80,6 +87,7 @@ export default function ProfileView(props: { loggedIn: boolean, setLoggedIn: Fun
             console.error("Error uploading image:", error);
         }
     };
+    
     
     useEffect(() => {
         const token = authService.getToken();
@@ -95,6 +103,7 @@ export default function ProfileView(props: { loggedIn: boolean, setLoggedIn: Fun
                 setUsername(json.username);
                 setEmail(json.email);
                 setCreationDate(json.CreatedAt);
+                setPreviewImage(json.image_url);
             });
         axios.get("http://localhost:8080/user/posts", headers)
             .then((res) => {
@@ -128,9 +137,8 @@ export default function ProfileView(props: { loggedIn: boolean, setLoggedIn: Fun
                 </div>
             )
         });
-
         return (
-            <div className="pt-20 flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center justify-center">
                 <div className="grid grid-cols-3 gap-2 text-left w-2/3">
                     <div className="col-span-3 rounded overflow-hidden shadow-xl font-bold text-center text-3xl w-full h-14">{username}'s Profile Page</div>
                     <div className="rounded overflow-hidden shadow-xl">

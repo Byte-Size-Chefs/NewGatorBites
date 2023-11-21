@@ -46,17 +46,17 @@ func main() {
 	user := r.Group("/user")
 	user.Use(middlewares.JwtAuthMiddleware())
 	user.GET("/", controllers.CurrentUser)
-	user.GET("/posts", controllers.GetUserPosts)                 //Grab all posts by user
-	user.POST("/createpost", controllers.CreatePost)             //Create new post
-	user.DELETE("/deletepost/:id", controllers.DeletePost)       //Delete Post
-	user.PATCH("/updatepost/:id", controllers.PatchPost)         //Update Post
-	user.POST("/createcomment", controllers.CreateComment)       //Create new comment
-	user.PATCH("/editcomment/:id", controllers.EditComment)      //Edit a comment
-	user.DELETE("/deletecomment/:id", controllers.DeleteComment) //Delete a comment
-	user.PATCH("/likepost/:id", controllers.LikePost)            //Likes a post and removes a dislike if there is one
-	user.PATCH("/dislikepost/:id", controllers.DislikePost)      //Dislikes a post and removes a like if there is one
-	user.PATCH("/clearrating/:id", controllers.ClearPostLikes)   //Clears a user's rating on a post
-
+	user.GET("/posts", controllers.GetUserPosts)                         //Grab all posts by user
+	user.POST("/createpost", controllers.CreatePost)                     //Create new post
+	user.DELETE("/deletepost/:id", controllers.DeletePost)               //Delete Post
+	user.PATCH("/updatepost/:id", controllers.PatchPost)                 //Update Post
+	user.POST("/createcomment", controllers.CreateComment)               //Create new comment
+	user.PATCH("/editcomment/:id", controllers.EditComment)              //Edit a comment
+	user.DELETE("/deletecomment/:id", controllers.DeleteComment)         //Delete a comment
+	user.PATCH("/likepost/:id", controllers.LikePost)                    //Likes a post and removes a dislike if there is one
+	user.PATCH("/dislikepost/:id", controllers.DislikePost)              //Dislikes a post and removes a like if there is one
+	user.PATCH("/clearrating/:id", controllers.ClearPostLikes)           //Clears a user's rating on a post
+	user.POST("/updateprofilepicture", controllers.UpdateProfilePicture) //updating the profile picture
 	admin := user.Group("/admin")
 	admin.DELETE("/deletepost/:id", controllers.AdminDeletePost)       //Delete a post (admin only)
 	admin.DELETE("/deletecomment/:id", controllers.AdminDeleteComment) //Delete a comment (admin only)
