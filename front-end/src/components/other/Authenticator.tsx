@@ -15,6 +15,11 @@ import CategoriesPage from "../routes/CategoriesPage";
 import WeeklyPrompt from "../Home/WeeklyPrompt";
 import SortByCuisine from "../Home/SortByCuisine";
 import Comp from "../routes/Comp";
+import Ital from "../routes/ital";
+import Mex from "../routes/mex";
+import Amer from "../routes/amer";
+import Indi from "../routes/india";
+import Asia from "../routes/asia";
 
 export default function Authenticator() {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
@@ -41,6 +46,11 @@ export default function Authenticator() {
             <Routes>
               <Route path="/" element={<Home loggedIn={loggedIn} />} />
               <Route path="/competition" element={<Comp loggedIn={loggedIn}/>} />
+              <Route path="/italian" element={<Ital loggedIn={loggedIn}/>} />
+              <Route path="/mexican" element={<Mex loggedIn={loggedIn}/>} />
+              <Route path="/indian" element={<Indi loggedIn={loggedIn}/>} />
+              <Route path="/american" element={<Amer loggedIn={loggedIn}/>} />
+              <Route path="/asian" element={<Asia loggedIn={loggedIn}/>} />
               <Route
                 path="/posts/create"
                 element={<CreatePost loggedIn={loggedIn} />}
