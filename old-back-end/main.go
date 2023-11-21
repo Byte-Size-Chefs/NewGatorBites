@@ -36,7 +36,7 @@ func main() {
 	r.GET("/categories", controllers.GetCategories)                        //Grab list of categories
 	r.GET("/users", controllers.GetUsers)                                  //Grab list of users
 	r.GET("/getpostsbycategory/:category", controllers.GetPostsByCategory) //Grab all posts by category
-
+	r.GET("/users/:username", controllers.GetUserByUsername)
 	r.POST("/register", controllers.Register)                      //Register new user
 	r.POST("/login", controllers.Login)                            //Login user
 	r.POST("/categories", controllers.CreateCategory)              //Create new category (SHOULD BE ADMIN ONLY ONCE IMPLEMENTED)

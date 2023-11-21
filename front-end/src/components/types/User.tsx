@@ -1,4 +1,3 @@
-
 interface User {
     ID: number;
     CreatedAt: string;
@@ -7,6 +6,7 @@ interface User {
     username: string;
     password: string;
     email: string;
-}
-
-export type { User }
+    image_url: string;
+  }
+  
+  export type { User }
