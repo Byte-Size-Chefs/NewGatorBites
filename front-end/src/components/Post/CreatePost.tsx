@@ -12,7 +12,7 @@ type post_input = {
 
 const postBody_class = "text-sm text-gray-base w-96 border rounded m-2";
 const postTitleClassName =
-    "text-sm text-gray-base w-96 mr-3 py-5 px-11 h-2 border border-gray-200 rounded mb-2 m-2";
+    "text-sm text-gray-base w-96 border rounded m-2";
 const selectionClassName =
     "inline-flex w-2/3 m-2 justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold w-36 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50";
 const postRespo = "Post Submitted!";
