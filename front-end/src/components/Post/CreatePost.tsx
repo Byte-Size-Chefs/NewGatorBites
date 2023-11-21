@@ -120,7 +120,7 @@ export default function CreatePost(props: { loggedIn: boolean }) {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center mt-1 ">
+        <div className="pt-20 flex flex-col items-center justify-center mt-1 ">
             <div className="min-w-96 w-2/3 rounded overflow-hidden shadow-lg border-2 border-sky-500 flex flex-col items-center justify-center">
                 <div className="text-xl font-sans font-bold">
                     Create New Post!

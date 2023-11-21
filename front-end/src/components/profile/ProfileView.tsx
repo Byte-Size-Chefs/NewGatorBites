@@ -130,7 +130,7 @@ export default function ProfileView(props: { loggedIn: boolean, setLoggedIn: Fun
         });
 
         return (
-            <div className="flex flex-col items-center justify-center">
+            <div className="pt-20 flex flex-col items-center justify-center">
                 <div className="grid grid-cols-3 gap-2 text-left w-2/3">
                     <div className="col-span-3 rounded overflow-hidden shadow-xl font-bold text-center text-3xl w-full h-14">{username}'s Profile Page</div>
                     <div className="rounded overflow-hidden shadow-xl">
