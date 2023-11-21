@@ -75,17 +75,9 @@ export default function Home(props: { loggedIn: boolean }) {
 
   let j = 0;
 
-  const html_recents = posts.map((post, i) => {
-    let outline_color;
-    if (i % 2 === 0) {
-      outline_color = "border-sky-500";
-    } else {
-      outline_color = "border-orange-500";
-    }
-    if (i >= posts.length - 5) {
-      j++;
-      return <PostCard post={posts[posts.length - j]} color={outline_color} />;
-    } else return null;
+  const html_recents = [...posts].reverse().map((post, i) => {
+    let outline_color = i % 2 === 0 ? "border-sky-500" : "border-orange-500";
+    return <PostCard post={post} color={outline_color} />;
   });
 
   return (
