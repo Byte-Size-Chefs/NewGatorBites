@@ -28,6 +28,7 @@ func CORSMiddleware() gin.HandlerFunc {
 func main() {
 	r := gin.Default()
 	r.Use(CORSMiddleware())
+	r.Use(middlewares.LoggerToCSV())
 
 	models.ConnectDatabase()
 
