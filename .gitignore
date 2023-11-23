@@ -24,3 +24,5 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
+back-end/competition_log.csv
+back-end/gin.csv

@@ -21,6 +21,15 @@ export default function Comp(props: { loggedIn: boolean }) {
         let category_data: Category[] = json.data;
         setCategories(category_data);
       });
+    fetch("http://localhost:8080/competition")
+    .then(response => {
+      // Handle response here if needed
+    })
+    .catch(error => {
+      console.error('Error logging visit to competition page:', error);
+    });
+
+
   }, []);
 
   // Currently uses the same html as the posts, but will be changed to display posts in the event category

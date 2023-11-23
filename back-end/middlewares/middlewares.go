@@ -6,11 +6,55 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 	"sync"
 	"time"
 
 	"github.com/gin-gonic/gin"
 )
+
+var (
+	compCounterLock sync.Mutex
+	compCounter     = make(map[string]int) // Map with date as key
+)
+
+func initCompetitionCSVWriter() *csv.Writer {
+	file, err := os.OpenFile("competition_log.csv", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatalf("Failed to open competition csv file: %v", err)
+	}
+	writer := csv.NewWriter(file)
+
+	// Write headers if file is new
+	if info, _ := file.Stat(); info.Size() == 0 {
+		headers := []string{"Username", "VisitCount"}
+		if err := writer.Write(headers); err != nil {
+			log.Fatalf("Failed to write headers to competition csv file: %v", err)
+		}
+		writer.Flush()
+	}
+	return writer
+}
+
+func CompetitionLogger() gin.HandlerFunc {
+	writer := initCompetitionCSVWriter()
+
+	return func(c *gin.Context) {
+		// Use the current date as the key
+		currentDate := time.Now().Format("2006-01-02") // YYYY-MM-DD format
+		compCounterLock.Lock()
+		compCounter[currentDate]++
+		count := compCounter[currentDate]
+		compCounterLock.Unlock()
+
+		// Write the current date and count to the CSV
+		record := []string{currentDate, strconv.Itoa(count)}
+		writer.Write(record)
+		writer.Flush()
+
+		c.Next()
+	}
+}
 
 var (
 	csvLock sync.Mutex

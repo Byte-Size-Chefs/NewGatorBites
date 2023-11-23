@@ -32,6 +32,8 @@ func main() {
 
 	models.ConnectDatabase()
 
+	r.GET("/competition", middlewares.CompetitionLogger(), controllers.CompetitionHandler)
+
 	r.GET("/posts", controllers.GetPosts)                                  //Grab all posts
 	r.GET("/posts/:id", controllers.GetPostByID)                           //Grab individual post
 	r.GET("/categories", controllers.GetCategories)                        //Grab list of categories
