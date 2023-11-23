@@ -12,7 +12,7 @@ export default function Homebar(props: { loggedIn: boolean }) {
     if (props.loggedIn === false) {
       return (
         <Link data-cy="login-button" to="/profile/login" data-testid="LogInBtn">
-          <div className="block mt-4 lg:inline-block lg:mt-0 text-sky-200 hover:text-white mr-4">
+          <div className="block mt-4 lg:inline-block lg:mt-0 text-sky-200 hover:text-white mr-4 font-bold">
             Login
           </div>
         </Link>
@@ -21,7 +21,7 @@ export default function Homebar(props: { loggedIn: boolean }) {
       console.log("token: " + localStorage.getItem("token"));
       return (
         <Link data-cy="profile-button" to="/profile">
-          <div className="block mt-4 lg:inline-block lg:mt-0 text-sky-200 hover:text-white mr-4">
+          <div className="block mt-4 lg:inline-block lg:mt-0 text-sky-200 hover:text-white mr-4 font-bold">
             Profile
           </div>
         </Link>
@@ -35,7 +35,7 @@ export default function Homebar(props: { loggedIn: boolean }) {
         <Link
           data-cy="create-post-button"
           to="/posts/create"
-          className="block mt-4 ml-auto lg:inline-block lg:mt-0 text-sky-200 hover:text-white mr-4"
+          className="block mt-4 ml-auto lg:inline-block lg:mt-0 text-sky-200 hover:text-white mr-4 font-bold"
         >
           Create Post
         </Link>
@@ -46,7 +46,7 @@ export default function Homebar(props: { loggedIn: boolean }) {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full z-10 flex flex-row justify-between bg-blue-700 px-5 py-2">
+    <div className="fixed top-0 left-0 w-full z-10 flex flex-row justify-between bg-sky-600 px-5 py-2">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         <a href="/" style={{ display: "flex", alignItems: "center" }}>
           <img

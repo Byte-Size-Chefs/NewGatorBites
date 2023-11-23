@@ -13,6 +13,7 @@ export default function Comp(props: { loggedIn: boolean }) {
       .then((res) => res.json())
       .then((json) => {
         let post_data: Post[] = json.data;
+        post_data.sort((a, b) => b.netRating - a.netRating);
         setPosts(post_data);
       });
     fetch("http://localhost:8080/categories")
@@ -24,7 +25,7 @@ export default function Comp(props: { loggedIn: boolean }) {
   }, []);
 
   // Currently uses the same html as the posts, but will be changed to display posts in the event category
-  const html_events = [...posts].reverse().map((post, i) => {
+  const html_events = posts.map((post, i) => {
     let outline_color = i % 2 === 0 ? "border-sky-500" : "border-orange-500";
     if (post.category === "Events") {
       return <PostCard post={post} color={outline_color} />;
@@ -69,7 +70,7 @@ export default function Comp(props: { loggedIn: boolean }) {
 
   let j = 0;
 
-  const html_recents = [...posts].reverse().map((post, i) => {
+  const html_recents = posts.map((post, i) => {
     let outline_color = "border-slate-700";
     return <PostCard post={post} color={outline_color} />;
   });
