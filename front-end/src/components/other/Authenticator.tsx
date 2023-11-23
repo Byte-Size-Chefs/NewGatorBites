@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route,  } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../routes/Home";
 
 import CreatePost from "../Post/CreatePost";
@@ -32,25 +32,25 @@ export default function Authenticator() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col h-screen">
+    <div className="bg-slate-900 min-h-screen">
       <BrowserRouter>
         <Homebar loggedIn={loggedIn} />
 
-        <div className="flex flex-grow">
-          <div className="w-80">
-            {" "}
-            <SortByCuisine  />
-          </div>
+        <div className="flex justify-center">
+          <SortByCuisine />
 
-          <div className="flex-grow">
+          <div>
             <Routes>
               <Route path="/" element={<Home loggedIn={loggedIn} />} />
-              <Route path="/competition" element={<Comp loggedIn={loggedIn}/>} />
-              <Route path="/italian" element={<Ital loggedIn={loggedIn}/>} />
-              <Route path="/mexican" element={<Mex loggedIn={loggedIn}/>} />
-              <Route path="/indian" element={<Indi loggedIn={loggedIn}/>} />
-              <Route path="/american" element={<Amer loggedIn={loggedIn}/>} />
-              <Route path="/asian" element={<Asia loggedIn={loggedIn}/>} />
+              <Route
+                path="/competition"
+                element={<Comp loggedIn={loggedIn} />}
+              />
+              <Route path="/italian" element={<Ital loggedIn={loggedIn} />} />
+              <Route path="/mexican" element={<Mex loggedIn={loggedIn} />} />
+              <Route path="/indian" element={<Indi loggedIn={loggedIn} />} />
+              <Route path="/american" element={<Amer loggedIn={loggedIn} />} />
+              <Route path="/asian" element={<Asia loggedIn={loggedIn} />} />
               <Route
                 path="/posts/create"
                 element={<CreatePost loggedIn={loggedIn} />}
@@ -85,12 +85,7 @@ export default function Authenticator() {
             </Routes>
           </div>
 
-          {/* Side area for the WeeklyPrompt */}
-          <div className="w-80">
-            {" "}
-            {/* you can adjust the width to fit your design */}
-            <WeeklyPrompt />
-          </div>
+          <WeeklyPrompt />
         </div>
       </BrowserRouter>
     </div>

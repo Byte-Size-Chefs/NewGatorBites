@@ -115,9 +115,11 @@ export default function CreatePost(props: { loggedIn: boolean }) {
   };
 
   return (
-    <div className="pt-20 flex flex-col items-center justify-center mt-1 ">
-      <div className="min-w-96 w-2/3 rounded overflow-hidden shadow-lg border-2 border-sky-500 flex flex-col items-center justify-center">
-        <div className="text-xl font-sans font-bold">Create New Post!</div>
+    <div className="pt-28 flex flex-col items-center justify-center mt-1 w-[616px]">
+      <div className="min-w-96 rounded overflow-hidden shadow-lg border-2 border-slate-500 flex flex-col items-center justify-center">
+        <div className="text-xl font-sans font-bold text-white">
+          Create New Post!
+        </div>
         <form onSubmit={handleSubmit}>
           <input
             className={postTitleClassName}
@@ -166,7 +168,7 @@ export default function CreatePost(props: { loggedIn: boolean }) {
             />
           )}
           <button
-            className="bg-orange-400 w-full rounded mb-1 overflow-hidden shadow-lg m-2"
+            className="bg-amber-500 w-full rounded mb-1 text-white "
             data-cy="post-submit-button"
             type="submit"
           >

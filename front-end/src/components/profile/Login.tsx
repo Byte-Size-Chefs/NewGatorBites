@@ -51,7 +51,7 @@ export default function Login(props: {
     return <div>Already logged in!</div>;
   } else {
     return (
-      <div className="pt-20 h-96 flex flex-col items-center justify-center">
+      <div className="pt-36 flex flex-col overflow-hidden h-full p-2">
         <form noValidate autoComplete="off" onSubmit={handleSubmit}>
           <input
             className={inputOneClassName}
@@ -81,7 +81,7 @@ export default function Login(props: {
             Username or Password was Incorrect!
           </div>
           <button
-            className="bg-orange-400 w-full mt-4 rounded mb-2 overflow-hidden shadow-lg"
+            className="bg-amber-500 w-full text-slate-900 py-2 mt-4 rounded mb-2 overflow-hidden shadow-lg text-white"
             data-cy="submit-button"
             data-testid="loginBtn"
             type="submit"
@@ -90,7 +90,7 @@ export default function Login(props: {
           </button>
           <br />
           <br />
-          <div className="footer block text-sm font-medium leading-6 text-gray-900 flex justify-center">
+          <div className="footer block text-sm font-medium leading-6 text-white flex justify-center">
             <Link to="/profile/register">
               Don't have an account? Register here!
             </Link>

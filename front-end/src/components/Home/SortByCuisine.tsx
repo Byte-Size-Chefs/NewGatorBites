@@ -19,38 +19,38 @@ const SortByCuisine: React.FC = () => {
   }
 
   return (
-    <div className="pt-20 bg-white-900 p-4 rounded-md shadow flex flex-col justify-between w-full h-full">
-      <div className="sticky top-20 bg-white p-6 w-full max-w-md rounded-md shadow mx-auto flex flex-col items-center">
-        <h3 className="text-xl font-semibold text-gray-800 mb-2 border-b border-gray-400 pb-2 text-center">
+    <div className="pt-20 p-4 rounded-md flex flex-col w-1/5">
+      <div className="sticky top-20  p-6  max-w-md rounded-md shadow mx-auto flex flex-col items-center">
+        <h3 className="text-xl font-semibold text-white mb-2 border-b border-amber-500 pb-2 text-center">
           {prompt.title}
         </h3>
-        <ul className="space-y-4">
+        <div className="flex flex-col w-36 ">
           <Link to="/italian">
-            <button className="bg-orange-400 text-black px-4 py-2 rounded w-full hover:scale-105 duration-500 mb-2">
+            <button className="bg-blue-700 text-white px-4 py-2 rounded w-full hover:scale-105 duration-500 mb-2">
               Italian
             </button>
           </Link>
           <Link to="/mexican">
-            <button className="bg-orange-400 text-black px-4 py-2 rounded w-full hover:scale-105 duration-500 mb-2">
+            <button className="bg-blue-700 text-white px-4 py-2 rounded w-full hover:scale-105 duration-500 mb-2">
               Mexican
             </button>
           </Link>
           <Link to="/indian">
-            <button className="bg-orange-400 text-black px-4 py-2 rounded w-full hover:scale-105 duration-500 mb-2">
+            <button className="bg-blue-700 text-white px-4 py-2 rounded w-full hover:scale-105 duration-500 mb-2">
               Indian
             </button>
           </Link>
           <Link to="/american">
-            <button className="bg-orange-400 text-black px-4 py-2 rounded w-full hover:scale-105 duration-500 mb-2">
+            <button className="bg-blue-700 text-white px-4 py-2 rounded w-full hover:scale-105 duration-500 mb-2">
               American
             </button>
           </Link>
           <Link to="/asian">
-            <button className="bg-orange-400 text-black px-4 py-2 rounded w-full hover:scale-105 duration-500 mb-2">
+            <button className="bg-blue-700 text-white px-4 py-2 rounded w-full hover:scale-105 duration-500 mb-2">
               Asian
             </button>
           </Link>
-        </ul>
+        </div>
       </div>
     </div>
   );

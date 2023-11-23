@@ -76,22 +76,25 @@ export default function Home(props: { loggedIn: boolean }) {
   let j = 0;
 
   const html_recents = [...posts].reverse().map((post, i) => {
-    let outline_color = i % 2 === 0 ? "border-sky-500" : "border-orange-500";
+    let outline_color = "border-slate-700";
     return <PostCard post={post} color={outline_color} />;
   });
 
   return (
-    <div className="pt-20 flex flex-col overflow-hidden h-full p-2">
-      <div className="max-w-7xl mx-auto grid grid-cols-12 gap-2 h-full overflow-hidden">
+    <div className="pt-20 flex flex-col overflow-hidden h-full p-2 ">
+      <div className="max-w-7xl mx-auto gap-2 h-full overflow-hidden">
         <div className="col-start-4 col-span-6 h-full overflow-y-auto">
-          <div data-cy="recents-tab" className="text-center text-xl font-bold">
+          <div
+            data-cy="recents-tab"
+            className="text-center text-xl font-bold text-white"
+          >
             Feed
           </div>
-          <div className="grid gap-y-1">{html_recents}</div>
+          <div className="w-[600px] gap-y-1 flex flex-col">{html_recents}</div>
         </div>
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-4 right-1/4 mr-[-90px] bg-blue-500 text-white rounded-full hover:scale-105 duration-500 flex items-center justify-center"
+          className="fixed bottom-4 right-1/4 mr-[-90px] bg-amber-500 text-slate-900 rounded-full hover:scale-105 duration-500 flex items-center justify-center"
           style={{ width: "40px", height: "40px", padding: "5px" }}
         >
           ↑
