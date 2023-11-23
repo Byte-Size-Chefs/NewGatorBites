@@ -70,12 +70,8 @@ export default function Indi(props: { loggedIn: boolean }) {
   let j = 0;
 
   const html_recents = posts.map((post, i) => {
-    let outline_color;
-    if (i % 2 === 0) {
-      outline_color = "border-sky-500";
-    } else {
-      outline_color = "border-orange-500";
-    }
+    let outline_color = "border-slate-700";
+
     if (i >= posts.length - 5) {
       j++;
       return <PostCard post={posts[posts.length - j]} color={outline_color} />;
@@ -83,13 +79,16 @@ export default function Indi(props: { loggedIn: boolean }) {
   });
 
   return (
-    <div className="pt-20 flex flex-col overflow-hidden h-full p-2">
-      <div className="max-w-7xl mx-auto grid grid-cols-12 gap-2 h-full overflow-hidden">
-        <div className="col-start-4 col-span-6 h-full overflow-y-auto">
-          <div data-cy="events-tab" className="text-center text-xl font-bold">
+    <div className=" pt-20 flex flex-col overflow-hidden h-full p-2 ">
+      <div className="max-w-7xl mx-auto gap-2  overflow-hidden">
+        <div className="col-start-4 col-span-6  overflow-y-auto">
+          <div
+            data-cy="events-tab"
+            className="text-center text-xl font-bold text-white"
+          >
             Indian Food Posts
           </div>
-          <div className="grid gap-y-1">{html_events}</div>
+          <div className="w-[600px] gap-y-1 flex flex-col">{html_recents}</div>
         </div>
       </div>
       <br />

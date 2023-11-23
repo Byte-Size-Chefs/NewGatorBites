@@ -124,7 +124,9 @@ export default function ProfileView(props: {
         <div
           data-cy={"post-" + post.title}
           key={post.id}
-          className={"rounded shadow-lg m-2 border-2 border-sky-500"}
+          className={
+            "rounded shadow-lg m-2 border-2 border-slate-700 text-white"
+          }
         >
           <div className="relative m-2">
             <div className="">
@@ -146,7 +148,7 @@ export default function ProfileView(props: {
               <button
                 data-cy={"post-delete-" + post.title}
                 onClick={() => handleDeletePost(post.id)}
-                className="bg-orange-400 w-14 rounded overflow-hidden shadow-lg"
+                className="bg-amber-500 w-14 rounded overflow-hidden shadow-lg"
               >
                 Delete
               </button>
@@ -156,8 +158,8 @@ export default function ProfileView(props: {
       );
     });
     return (
-      <div className="pt-20 flex flex-col items-center justify-center">
-        <div className="grid grid-cols-3 gap-2 text-left w-2/3">
+      <div className="pt-20 flex flex-col items-center justify-center text-white w-[600px] ">
+        <div className="grid grid-cols-3 gap-2 text-left">
           <div className="col-span-3 rounded overflow-hidden shadow-xl font-bold text-center text-3xl w-full h-14">
             {username}'s Profile Page
           </div>
@@ -165,7 +167,7 @@ export default function ProfileView(props: {
             <div className="text-center text-xl font-sans font-bold">
               Profile Info:
             </div>
-            <div className="h-54 rounded shadow-lg m-2 border-2 p-2 border-sky-500">
+            <div className="h-54 rounded shadow-lg m-2 border-2 p-2 border-slate-700">
               <div className="img-wrap img-upload">
                 <img
                   src={
@@ -182,12 +184,12 @@ export default function ProfileView(props: {
               />
               <button
                 onClick={handleImageUpload}
-                className="bg-orange-400 w-14 rounded overflow-hidden shadow-lg m-2"
+                className="bg-amber-500 w-14 rounded overflow-hidden shadow-lg m-2"
               >
                 Save
               </button>
             </div>
-            <div className="h-54 rounded shadow-lg m-2 border-2 p-2 border-sky-500">
+            <div className="h-54 rounded shadow-lg m-2 border-2 p-2 border-slate-700">
               <div className="font-sans">Username: {username}</div>
               <br />
               <div className="font-sans">Email: {email}</div>
@@ -198,7 +200,7 @@ export default function ProfileView(props: {
               <br />
               <button
                 onClick={handleLogoutButton}
-                className="bottom-0 left-0 bg-orange-400 w-14 rounded overflow-hidden shadow-lg m-2"
+                className="bottom-0 left-0 bg-amber-500 w-14 rounded overflow-hidden shadow-lg m-2"
               >
                 Logout
               </button>

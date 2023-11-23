@@ -46,7 +46,7 @@ export default function Homebar(props: { loggedIn: boolean }) {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full z-10 flex flex-row justify-between bg-sky-500 p-2">
+    <div className="fixed top-0 left-0 w-full z-10 flex flex-row justify-between bg-blue-700 px-5 py-2">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         <a href="/" style={{ display: "flex", alignItems: "center" }}>
           <img
