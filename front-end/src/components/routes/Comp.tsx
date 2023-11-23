@@ -21,10 +21,7 @@ export default function Comp(props: { loggedIn: boolean }) {
         let category_data: Category[] = json.data;
         setCategories(category_data);
       });
-    fetch("http://localhost:8080/competition")
-    .then(response => {
-      // Handle response here if needed
-    })
+    fetch("http://localhost:8080/competition-view")
     .catch(error => {
       console.error('Error logging visit to competition page:', error);
     });

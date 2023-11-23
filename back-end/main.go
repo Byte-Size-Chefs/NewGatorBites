@@ -7,6 +7,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	// "github.com/gin-contrib/cors"
+
+	"time"
 )
 
 func CORSMiddleware() gin.HandlerFunc {
@@ -32,7 +34,7 @@ func main() {
 
 	models.ConnectDatabase()
 
-	r.GET("/competition", middlewares.CompetitionLogger(), controllers.CompetitionHandler)
+	r.GET("/competition-view", middlewares.CompetitionLogger(), controllers.CompetitionHandler)
 
 	r.GET("/posts", controllers.GetPosts)                                  //Grab all posts
 	r.GET("/posts/:id", controllers.GetPostByID)                           //Grab individual post
@@ -65,6 +67,19 @@ func main() {
 	admin.DELETE("/deletecomment/:id", controllers.AdminDeleteComment) //Delete a comment (admin only)
 	admin.POST("createcategory", controllers.CreateCategory)           //Create new category (admin only)
 	admin.PATCH("/editcategory/:id", controllers.EditCategory)         //Edit a category (admin only)
+
+	middlewares.ReadCompetitionLog()
+
+	// Schedule the writeCompetitionLog function to run periodically
+	ticker := time.NewTicker(1 * time.Hour) // Adjust the duration as needed
+	go func() {
+		for range ticker.C {
+			middlewares.CompCounterLock.Lock()
+			middlewares.WriteCompetitionLog()
+			middlewares.CompCounterLock.Unlock()
+		}
+		return
+	}()
 
 	r.Run()
 }

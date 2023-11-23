@@ -3,6 +3,7 @@ package middlewares
 import (
 	"cen/backend/utils/token"
 	"encoding/csv"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -14,8 +15,8 @@ import (
 )
 
 var (
-	compCounterLock sync.Mutex
-	compCounter     = make(map[string]int) // Map with date as key
+	CompCounterLock sync.Mutex
+	CompCounter     = make(map[string]int) // Map with date as key
 )
 
 func initCompetitionCSVWriter() *csv.Writer {
@@ -25,9 +26,8 @@ func initCompetitionCSVWriter() *csv.Writer {
 	}
 	writer := csv.NewWriter(file)
 
-	// Write headers if file is new
 	if info, _ := file.Stat(); info.Size() == 0 {
-		headers := []string{"Username", "VisitCount"}
+		headers := []string{"Date", "VisitCount"}
 		if err := writer.Write(headers); err != nil {
 			log.Fatalf("Failed to write headers to competition csv file: %v", err)
 		}
@@ -36,21 +36,52 @@ func initCompetitionCSVWriter() *csv.Writer {
 	return writer
 }
 
+func ReadCompetitionLog() {
+	file, err := os.Open("competition_log.csv")
+	if err != nil {
+		log.Fatalf("Failed to open competition csv file for reading: %v", err)
+	}
+	defer file.Close()
+
+	reader := csv.NewReader(file)
+	for {
+		record, err := reader.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			log.Fatalf("Failed to read competition csv file: %v", err)
+		}
+
+		date, countStr := record[0], record[1]
+		count, _ := strconv.Atoi(countStr)
+		CompCounter[date] = count
+	}
+}
+
+// Function to write the CompCounter map to the CSV file
+func WriteCompetitionLog() {
+	file, err := os.Create("competition_log.csv")
+	if err != nil {
+		log.Fatalf("Failed to open competition csv file for writing: %v", err)
+	}
+	defer file.Close()
+
+	writer := csv.NewWriter(file)
+	writer.Write([]string{"Date", "VisitCount"}) // Writing headers
+
+	for date, count := range CompCounter {
+		writer.Write([]string{date, strconv.Itoa(count)})
+	}
+	writer.Flush()
+}
+
 func CompetitionLogger() gin.HandlerFunc {
-	writer := initCompetitionCSVWriter()
-
 	return func(c *gin.Context) {
-		// Use the current date as the key
-		currentDate := time.Now().Format("2006-01-02") // YYYY-MM-DD format
-		compCounterLock.Lock()
-		compCounter[currentDate]++
-		count := compCounter[currentDate]
-		compCounterLock.Unlock()
-
-		// Write the current date and count to the CSV
-		record := []string{currentDate, strconv.Itoa(count)}
-		writer.Write(record)
-		writer.Flush()
+		currentDate := time.Now().Format("2006-01-02")
+		CompCounterLock.Lock()
+		CompCounter[currentDate]++
+		CompCounterLock.Unlock()
 
 		c.Next()
 	}
