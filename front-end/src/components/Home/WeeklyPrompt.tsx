@@ -24,7 +24,7 @@ const WeeklyPrompt: React.FC = () => {
         </div>
         <div className="flex justify-center mt-4">
           <Link to="/competition">
-            <button className="bg-blue-700 text-white px-4 py-2 rounded hover:scale-105 duration-500">
+            <button className="bg-sky-600 text-white px-4 py-2 rounded hover:scale-105 duration-500">
               Check out the competition!
             </button>
           </Link>

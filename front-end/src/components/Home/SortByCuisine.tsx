@@ -26,27 +26,27 @@ const SortByCuisine: React.FC = () => {
         </h3>
         <div className="flex flex-col w-36 ">
           <Link to="/italian">
-            <button className="bg-blue-700 text-white px-4 py-2 rounded w-full hover:scale-105 duration-500 mb-2">
+            <button className="bg-sky-600 text-white px-4 py-2 rounded w-full hover:scale-105 duration-500 mb-2">
               Italian
             </button>
           </Link>
           <Link to="/mexican">
-            <button className="bg-blue-700 text-white px-4 py-2 rounded w-full hover:scale-105 duration-500 mb-2">
+            <button className="bg-sky-600 text-white px-4 py-2 rounded w-full hover:scale-105 duration-500 mb-2">
               Mexican
             </button>
           </Link>
           <Link to="/indian">
-            <button className="bg-blue-700 text-white px-4 py-2 rounded w-full hover:scale-105 duration-500 mb-2">
+            <button className="bg-sky-600 text-white px-4 py-2 rounded w-full hover:scale-105 duration-500 mb-2">
               Indian
             </button>
           </Link>
           <Link to="/american">
-            <button className="bg-blue-700 text-white px-4 py-2 rounded w-full hover:scale-105 duration-500 mb-2">
+            <button className="bg-sky-600 text-white px-4 py-2 rounded w-full hover:scale-105 duration-500 mb-2">
               American
             </button>
           </Link>
           <Link to="/asian">
-            <button className="bg-blue-700 text-white px-4 py-2 rounded w-full hover:scale-105 duration-500 mb-2">
+            <button className="bg-sky-600 text-white px-4 py-2 rounded w-full hover:scale-105 duration-500 mb-2">
               Asian
             </button>
           </Link>

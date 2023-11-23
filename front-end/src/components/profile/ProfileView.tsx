@@ -118,45 +118,48 @@ export default function ProfileView(props: {
   }, []);
 
   if (props.loggedIn) {
-    const post_data = userPosts.map((post) => {
-      const post_url = "/posts/" + post.id;
-      return (
-        <div
-          data-cy={"post-" + post.title}
-          key={post.id}
-          className={
-            "rounded shadow-lg m-2 border-2 border-slate-700 text-white"
-          }
-        >
-          <div className="relative m-2">
-            <div className="">
-              <React.Fragment>
-                <Link to={post_url}>
-                  <p className="url_styling text-lg font-semibold w-5/6">
-                    {post.title}
-                  </p>
-                </Link>
-              </React.Fragment>
-            </div>
-            <div>
-              <p className="font-light w-5/6">
-                {post.body.slice(0, 50) + "..."}
-              </p>
-            </div>
-            <div className="absolute bottom-0 right-0 font-thin italic">
-              <br />
-              <button
-                data-cy={"post-delete-" + post.title}
-                onClick={() => handleDeletePost(post.id)}
-                className="bg-amber-500 w-14 rounded overflow-hidden shadow-lg"
-              >
-                Delete
-              </button>
+    const post_data = userPosts
+      .slice()
+      .reverse()
+      .map((post) => {
+        const post_url = "/posts/" + post.id;
+        return (
+          <div
+            data-cy={"post-" + post.title}
+            key={post.id}
+            className={
+              "rounded shadow-lg m-2 border-2 border-slate-700 text-white"
+            }
+          >
+            <div className="relative m-2">
+              <div className="">
+                <React.Fragment>
+                  <Link to={post_url}>
+                    <p className="url_styling text-lg font-semibold w-5/6">
+                      {post.title}
+                    </p>
+                  </Link>
+                </React.Fragment>
+              </div>
+              <div>
+                <p className="font-light w-5/6">
+                  {post.body.slice(0, 50) + "..."}
+                </p>
+              </div>
+              <div className="absolute bottom-0 right-0 font-thin italic">
+                <br />
+                <button
+                  data-cy={"post-delete-" + post.title}
+                  onClick={() => handleDeletePost(post.id)}
+                  className="bg-amber-500 w-14 rounded overflow-hidden shadow-lg"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      );
-    });
+        );
+      });
     return (
       <div className="pt-20 flex flex-col items-center justify-center text-white w-[600px] ">
         <div className="grid grid-cols-3 gap-2 text-left">
