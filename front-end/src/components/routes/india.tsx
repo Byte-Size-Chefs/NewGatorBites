@@ -25,7 +25,7 @@ export default function Indi(props: { loggedIn: boolean }) {
 
   // Currently uses the same html as the posts, but will be changed to display posts in the event category
   const html_events = [...posts].reverse().map((post, i) => {
-    let outline_color = i % 2 === 0 ? "border-sky-500" : "border-orange-500";
+    let outline_color = "border-slate-700";
     if (post.category === "Indian") {
       return <PostCard post={post} color={outline_color} />;
     }
@@ -88,7 +88,7 @@ export default function Indi(props: { loggedIn: boolean }) {
           >
             Indian Food Posts
           </div>
-          <div className="w-[600px] gap-y-1 flex flex-col">{html_recents}</div>
+          <div className="w-[600px] gap-y-1 flex flex-col">{html_events}</div>
         </div>
       </div>
       <br />
