@@ -28,8 +28,11 @@ func CORSMiddleware() gin.HandlerFunc {
 func main() {
 	r := gin.Default()
 	r.Use(CORSMiddleware())
+	r.Use(middlewares.LoggerToCSV())
 
 	models.ConnectDatabase()
+
+	r.GET("/competition-view", middlewares.CompetitionLogger(), controllers.CompetitionHandler)
 
 	r.GET("/posts", controllers.GetPosts)                                  //Grab all posts
 	r.GET("/posts/:id", controllers.GetPostByID)                           //Grab individual post
