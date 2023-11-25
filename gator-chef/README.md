@@ -9,14 +9,21 @@ This server uses Flask and LlamaCpp via the LangChain library to provide recipes
 ## Setup
 1. Install Flask: `pip install flask`
 2. Install LangChain: `pip install langchain`
-3. Download the LlamaCpp model (9.9GB) from [here](https://huggingface.co/TheBloke/CodeLlama-13B-GGUF/blob/main/codellama-13b.Q6_K.gguf) and place it in the same folder as your script.
+3. Download the LlamaCpp model (10.7GB) from [here](https://huggingface.co/TheBloke/Orca-2-13B-GGUF/blob/main/orca-2-13b.Q6_K.gguf) and place it in the same folder as your script.
 
 ## Running the Server
-1. Run the command: `python3 server.py`.
+1. Run the command: `python server.py`.
 
 ## Usage 
-### (It's just one GET request on http://localhost:5000/get_recipe)
+(It's just one GET request on http://localhost:5000/get_recipe)
+
 To fetch a recipe, use:
 `curl "http://localhost:5000/get_recipe?food=[food item]"`
 
 Replace `[food item]` with your desired food, e.g., `banana pancakes`.
+
+`curl "http://localhost:5000/get_recipe?food=banana%pancakes"`
+
+OBS - You may need to use 'pip3' (instead of 'pip') or 'python3' (instead of 'python') if either is not recognized. 
+
+OBS2 - If you have GPUs, 'uncomment' line 14
