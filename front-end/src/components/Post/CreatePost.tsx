@@ -53,7 +53,17 @@ export default function CreatePost(props: { loggedIn: boolean }) {
       setPostAffirm(
         " font-medium tracking-wide text-red-500 text-xs mt-1 ml-2 visible"
       );
+      return;
     }
+
+    if (!selectedImage) {
+      setPostResponse("Please select an image");
+      setPostAffirm(
+        "font-medium tracking-wide text-red-500 text-xs mt-1 ml-2 visible"
+      );
+      return; // Exit the function if no image is selected
+    }
+  
     if (token !== null) {
       const post: post_input = {
         title: title,

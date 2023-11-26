@@ -160,7 +160,7 @@ const ProfileView: React.FC<{ loggedIn: boolean; setLoggedIn: Function }> = (
         );
       });
     return (
-      <div className="pt-20 flex flex-col items-center justify-center text-white w-[600px] ">
+      <div className="pt-20 flex flex-col items-center justify-center text-white w-[600px] mx-auto">
         <div className="grid grid-cols-3 gap-2 text-left">
           <div className="col-span-3 rounded overflow-hidden shadow-xl font-bold text-center text-3xl w-full h-14">
             {username}'s Profile Page
@@ -188,6 +188,7 @@ const ProfileView: React.FC<{ loggedIn: boolean; setLoggedIn: Function }> = (
               <input
                 id="photo-upload"
                 type="file"
+                accept="image/jpeg, image/png"
                 onChange={handleImageSelection}
                 className="hidden"
               />
