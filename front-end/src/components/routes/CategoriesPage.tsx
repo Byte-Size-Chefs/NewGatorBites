@@ -30,7 +30,7 @@ export default function CategoriesPage() {
     }
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/posts')
+        fetch('/api/posts')
         .then((res) => res.json())
         .then((json) => {
             let post_data: Post[] = json.data;

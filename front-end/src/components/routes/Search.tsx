@@ -41,13 +41,13 @@ export default function Home(props: {loggedIn: boolean}) {
     }
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/posts')
+        fetch('/api/posts')
         .then((res) => res.json())
         .then((json) => {
             let post_data: Post[] = json.data;
             setPosts(post_data);
         });
-        fetch('http://localhost:8080/api/categories')
+        fetch('/api/categories')
             .then((res) => res.json())
             .then((json) => {
                 let category_data: Category[] = json.data;

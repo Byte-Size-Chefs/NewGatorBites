@@ -47,7 +47,7 @@ func main() {
 	api.GET("/getcomments/:postid", controllers.GetCommentsByPostID) //Grab all comments by post id
 	api.PATCH("/addadmin/:id", controllers.SetUserAsAdmin)           //Set user as admin (SHOULD BE ADMIN ONLY ONCE IMPLEMENTED)
 
-	user := r.Group("/user")
+	user := r.Group("/api/user")
 	user.Use(middlewares.JwtAuthMiddleware())
 	user.GET("/", controllers.CurrentUser)
 	user.GET("/posts", controllers.GetUserPosts)                         //Grab all posts by user
