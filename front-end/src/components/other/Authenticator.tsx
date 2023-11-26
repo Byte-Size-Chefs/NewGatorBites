@@ -25,7 +25,7 @@ export default function Authenticator() {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log("Authenticator useEffect");
+    //console.log("Authenticator useEffect");
     (async () => {
       setLoggedIn(await authService.isLoggedIn());
     })();

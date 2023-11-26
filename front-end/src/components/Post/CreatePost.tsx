@@ -31,7 +31,7 @@ export default function CreatePost(props: { loggedIn: boolean }) {
     fetch("http://localhost:8080/api/categories")
       .then((res) => res.json())
       .then((json) => {
-        console.log(json);
+        // console.log(json);
         let category_data: Category[] = json.data;
         setCategories(category_data);
       });
@@ -39,7 +39,7 @@ export default function CreatePost(props: { loggedIn: boolean }) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(category);
+    // console.log(category);
     setPostResponse(postRespo);
     setPostAffirm(
       "font-medium tracking-wide text-green-500 text-xs mt-1 ml-2 invisible"
@@ -67,7 +67,7 @@ export default function CreatePost(props: { loggedIn: boolean }) {
         formData.append("image", post.image, post.image.name);
       }
 
-      console.log(formData);
+      // console.log(formData);
       const headers = {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -78,7 +78,7 @@ export default function CreatePost(props: { loggedIn: boolean }) {
       axios
         .post("http://localhost:8080/api/user/createpost", formData, headers)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           setPostAffirm(
             " font-medium tracking-wide text-green-500 text-xs mt-1 ml-2 visible"
           );
@@ -88,7 +88,7 @@ export default function CreatePost(props: { loggedIn: boolean }) {
           setPreviewImage(null);
         });
     } else {
-      console.log("Not logged in");
+      // console.log("Not logged in");
     }
   };
 

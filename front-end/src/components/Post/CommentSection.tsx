@@ -37,17 +37,17 @@ export default function CommentSectionNew(props: { postID: number }) {
             .then((res) => {
               let json = res.data.data;
               setUserName(json.username);
-              console.log("Active User: " + userName);
+              // console.log("Active User: " + userName);
             })
             .catch((err) => {
-              console.log("Error: " + err);
+              // console.log("Error: " + err);
             });
         });
         let comment_data: Comment[] = json.data;
         setComments(comment_data);
       })
       .catch((err) => {
-        console.log("Error: " + err);
+        // console.log("Error: " + err);
       });
   }, [props.postID, userName]);
 
@@ -75,12 +75,12 @@ export default function CommentSectionNew(props: { postID: number }) {
           setBody("");
         })
         .catch((err) => {
-          console.log("Comment Failed!!" + err);
+          // console.log("Comment Failed!!" + err);
         });
     } else {
-      console.log("NOT LOGGED IN CANNOT CREATE POST");
+      // console.log("NOT LOGGED IN CANNOT CREATE POST");
       setCommentInputBox(comment_error_class);
-      console.log("error happened");
+      // console.log("error happened");
       setError(true);
     }
   };

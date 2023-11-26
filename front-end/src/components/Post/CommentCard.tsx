@@ -19,9 +19,9 @@ export default function CommentCard(props: {
     axios
       .delete("http://localhost:8080/api/user/deletecomment/" + id, headers)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.status === 200) {
-          console.log("Post deleted");
+          // console.log("Post deleted");
           props.setComments(
             props.comments.filter((comment) => comment.id !== id)
           );

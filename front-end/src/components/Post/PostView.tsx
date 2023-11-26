@@ -16,8 +16,8 @@ export default function PostView() {
       .then((json) => {
         let post_data: Post = json.data;
         setPost(post_data);
-        console.log("Post Data:", post_data);
-        console.log("Post Data:", post?.body);
+        // console.log("Post Data:", post_data);
+        // console.log("Post Data:", post?.body);
       })
       .catch((error) => {
         console.error("Error fetching post:", error);
@@ -25,7 +25,7 @@ export default function PostView() {
   }, [id]);
 
   useEffect(() => {
-    console.log("Image URL:", post?.imageUrl);
+    // console.log("Image URL:", post?.imageUrl);
   }, [post?.imageUrl]);
 
   if (post === undefined) {

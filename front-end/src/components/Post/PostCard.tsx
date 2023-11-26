@@ -24,9 +24,9 @@ export default function PostCard(props: { post: Post; color: string }) {
     axios
       .get(`http://localhost:8080/api/users/${username}`)
       .then((response) => {
-        console.log("User details from API:", response.data);
+        // console.log("User details from API:", response.data);
         setUserDetails(response.data);
-        console.log("User details after setting state:", userDetails);
+        // console.log("User details after setting state:", userDetails);
       })
       .catch((error) => {
         console.error("Error fetching user details:", error);
@@ -45,14 +45,14 @@ export default function PostCard(props: { post: Post; color: string }) {
         )
         .then((res) => {
           if (res.status === 200) {
-            console.log("cleared the users upvote");
+            // console.log("cleared the users upvote");
             setUpvotes(res.data.data.netRating);
           } else {
-            console.log("failed to clear the users upvote. Not upvoted");
+            // console.log("failed to clear the users upvote. Not upvoted");
           }
         });
     } else {
-      console.log("Not logged in");
+      // console.log("Not logged in");
     }
   };
 
@@ -77,11 +77,11 @@ export default function PostCard(props: { post: Post; color: string }) {
           if (err.response.status === 400) {
             clearUpvotes();
           } else {
-            console.log(err.response.status);
+            // console.log(err.response.status);
           }
         });
     } else {
-      console.log("Not logged in");
+      // console.log("Not logged in");
     }
   };
 
@@ -106,15 +106,15 @@ export default function PostCard(props: { post: Post; color: string }) {
           if (err.response.status === 400) {
             clearUpvotes();
           } else {
-            console.log(err.response.status);
+            // console.log(err.response.status);
           }
         });
     } else {
-      console.log("Not logged in");
+      // console.log("Not logged in");
     }
   };
   const post_url = "/posts/" + props.post.id;
-  console.log(userDetails?.image_url); // Log here
+  // console.log(userDetails?.image_url); // Log here
 
   return (
     <div
