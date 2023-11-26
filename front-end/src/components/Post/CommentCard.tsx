@@ -17,7 +17,7 @@ export default function CommentCard(props: {
       },
     };
     axios
-      .delete("http://localhost:8080/user/deletecomment/" + id, headers)
+      .delete("http://localhost:8080/api/user/deletecomment/" + id, headers)
       .then((res) => {
         console.log(res);
         if (res.status === 200) {

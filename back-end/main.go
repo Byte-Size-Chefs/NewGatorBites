@@ -32,19 +32,20 @@ func main() {
 
 	models.ConnectDatabase()
 
-	r.GET("/competition-view", middlewares.CompetitionLogger(), controllers.CompetitionHandler)
+	api := r.Group("/api")
+	api.GET("/competition-view", middlewares.CompetitionLogger(), controllers.CompetitionHandler)
 
-	r.GET("/posts", controllers.GetPosts)                                  //Grab all posts
-	r.GET("/posts/:id", controllers.GetPostByID)                           //Grab individual post
-	r.GET("/categories", controllers.GetCategories)                        //Grab list of categories
-	r.GET("/users", controllers.GetUsers)                                  //Grab list of users
-	r.GET("/getpostsbycategory/:category", controllers.GetPostsByCategory) //Grab all posts by category
-	r.GET("/users/:username", controllers.GetUserByUsername)
-	r.POST("/register", controllers.Register)                      //Register new user
-	r.POST("/login", controllers.Login)                            //Login user
-	r.POST("/categories", controllers.CreateCategory)              //Create new category (SHOULD BE ADMIN ONLY ONCE IMPLEMENTED)
-	r.GET("/getcomments/:postid", controllers.GetCommentsByPostID) //Grab all comments by post id
-	r.PATCH("/addadmin/:id", controllers.SetUserAsAdmin)           //Set user as admin (SHOULD BE ADMIN ONLY ONCE IMPLEMENTED)
+	api.GET("/posts", controllers.GetPosts)                                  //Grab all posts
+	api.GET("/posts/:id", controllers.GetPostByID)                           //Grab individual post
+	api.GET("/categories", controllers.GetCategories)                        //Grab list of categories
+	api.GET("/users", controllers.GetUsers)                                  //Grab list of users
+	api.GET("/getpostsbycategory/:category", controllers.GetPostsByCategory) //Grab all posts by category
+	api.GET("/users/:username", controllers.GetUserByUsername)
+	api.POST("/register", controllers.Register)                      //Register new user
+	api.POST("/login", controllers.Login)                            //Login user
+	api.POST("/categories", controllers.CreateCategory)              //Create new category (SHOULD BE ADMIN ONLY ONCE IMPLEMENTED)
+	api.GET("/getcomments/:postid", controllers.GetCommentsByPostID) //Grab all comments by post id
+	api.PATCH("/addadmin/:id", controllers.SetUserAsAdmin)           //Set user as admin (SHOULD BE ADMIN ONLY ONCE IMPLEMENTED)
 
 	user := r.Group("/user")
 	user.Use(middlewares.JwtAuthMiddleware())

@@ -22,7 +22,7 @@ export default function PostCard(props: { post: Post; color: string }) {
         : props.post.user.username;
 
     axios
-      .get(`http://localhost:8080/users/${username}`)
+      .get(`http://localhost:8080/api/users/${username}`)
       .then((response) => {
         console.log("User details from API:", response.data);
         setUserDetails(response.data);
@@ -39,7 +39,7 @@ export default function PostCard(props: { post: Post; color: string }) {
       const headers = { headers: { Authorization: `Bearer ${token}` } };
       axios
         .patch(
-          `http://localhost:8080/user/clearrating/${props.post.id}`,
+          `http://localhost:8080/api/user/clearrating/${props.post.id}`,
           {},
           headers
         )
@@ -62,7 +62,7 @@ export default function PostCard(props: { post: Post; color: string }) {
       const headers = { headers: { Authorization: `Bearer ${token}` } };
       axios
         .patch(
-          `http://localhost:8080/user/likepost/${props.post.id}`,
+          `http://localhost:8080/api/user/likepost/${props.post.id}`,
           {},
           headers
         )
@@ -91,7 +91,7 @@ export default function PostCard(props: { post: Post; color: string }) {
       const headers = { headers: { Authorization: `Bearer ${token}` } };
       axios
         .patch(
-          `http://localhost:8080/user/dislikepost/${props.post.id}`,
+          `http://localhost:8080/api/user/dislikepost/${props.post.id}`,
           {},
           headers
         )
