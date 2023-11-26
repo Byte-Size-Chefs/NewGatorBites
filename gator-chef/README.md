@@ -9,7 +9,7 @@ This server uses Flask and LlamaCpp via the LangChain library to provide recipes
 ## Setup
 1. Install Flask: `pip install flask`
 2. Install LangChain: `pip install langchain`
-3. Download the LlamaCpp model (10.7GB) from [here](https://huggingface.co/TheBloke/Orca-2-13B-GGUF/blob/main/orca-2-13b.Q6_K.gguf) and place it in the same folder as your script.
+3. Download the LlamaCpp model (5.43GB) from [here](https://huggingface.co/TheBloke/Orca-2-13B-GGUF/blob/main/orca-2-13b.Q2_K.gguf) and place it in the same folder as your script.
 
 ## Running the Server
 1. Run the command: `python server.py`.

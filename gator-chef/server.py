@@ -7,7 +7,7 @@ app = Flask(__name__)
 callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
 
 llm = LlamaCpp(
-    model_path="orca-2-13b.Q6_K.gguf",
+    model_path="orca-2-13b.Q2_K.gguf",
     n_ctx=5000,
     n_batch=32,
     max_tokens=512, # Increase it if you need more tokens (words) in the output
