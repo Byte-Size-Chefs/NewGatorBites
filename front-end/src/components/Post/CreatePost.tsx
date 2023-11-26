@@ -28,7 +28,7 @@ export default function CreatePost(props: { loggedIn: boolean }) {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/categories")
+    fetch("/api/categories")
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
@@ -76,7 +76,7 @@ export default function CreatePost(props: { loggedIn: boolean }) {
       };
 
       axios
-        .post("http://localhost:8080/api/user/createpost", formData, headers)
+        .post("/api/user/createpost", formData, headers)
         .then((res) => {
           console.log(res);
           setPostAffirm(

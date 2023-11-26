@@ -9,20 +9,20 @@ export default function Comp(props: { loggedIn: boolean }) {
   const [categories, setCategories] = useState<Array<Category>>([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/posts")
+    fetch("/api/posts")
       .then((res) => res.json())
       .then((json) => {
         let post_data: Post[] = json.data;
         post_data.sort((a, b) => b.netRating - a.netRating);
         setPosts(post_data);
       });
-    fetch("http://localhost:8080/api/categories")
+    fetch("/api/categories")
       .then((res) => res.json())
       .then((json) => {
         let category_data: Category[] = json.data;
         setCategories(category_data);
       });
-    fetch("http://localhost:8080/api/competition-view")
+    fetch("/api/competition-view")
     .catch(error => {
       console.error('Error logging visit to competition page:', error);
     });

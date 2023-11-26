@@ -48,7 +48,7 @@ export default function ProfileView(props: {
         },
       };
       axios
-        .delete("http://localhost:8080/api/user/deletepost/" + postid, headers)
+        .delete("/api/user/deletepost/" + postid, headers)
         .then((res) => {
           console.log(res);
           if (res.status === 200) {
@@ -73,7 +73,7 @@ export default function ProfileView(props: {
 
       // Send a request to the backend to upload the image
       const response = await axios.post(
-        "http://localhost:8080/api/user/updateprofilepicture",
+        "/api/user/updateprofilepicture",
         formData,
         {
           headers: {
@@ -102,7 +102,7 @@ export default function ProfileView(props: {
         Authorization: `Bearer ${token}`,
       },
     };
-    axios.get("http://localhost:8080/api/user/", headers).then((res) => {
+    axios.get("/api/user/", headers).then((res) => {
       let json = res.data.data;
       console.log(json);
       setUsername(json.username);
@@ -110,7 +110,7 @@ export default function ProfileView(props: {
       setCreationDate(json.CreatedAt);
       setPreviewImage(json.image_url);
     });
-    axios.get("http://localhost:8080/api/user/posts", headers).then((res) => {
+    axios.get("/api/user/posts", headers).then((res) => {
       let json = res.data.data;
       console.log(json);
       setUserPosts(json);

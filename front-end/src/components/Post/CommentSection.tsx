@@ -21,7 +21,7 @@ export default function CommentSectionNew(props: { postID: number }) {
   const [userName, setUserName] = useState<string>("");
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/getcomments/" + props.postID)
+    fetch("/api/getcomments/" + props.postID)
       .then((res) => res.json())
       .then((json) => {
         authService.isLoggedIn().then((isLogged) => {
@@ -33,7 +33,7 @@ export default function CommentSectionNew(props: { postID: number }) {
             },
           };
           axios
-            .get("http://localhost:8080/api/user/", headers)
+            .get("/api/user/", headers)
             .then((res) => {
               let json = res.data.data;
               setUserName(json.username);
@@ -68,7 +68,7 @@ export default function CommentSectionNew(props: { postID: number }) {
       };
 
       axios
-        .post("http://localhost:8080/api/user/createcomment", comment, headers)
+        .post("/api/user/createcomment", comment, headers)
         .then((res) => {
           let new_comment = res.data.data;
           setComments([...comments, new_comment]);

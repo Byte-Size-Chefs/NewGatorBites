@@ -11,7 +11,7 @@ export default function PostView() {
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/posts/" + id)
+    fetch("/api/posts/" + id)
       .then((res) => res.json())
       .then((json) => {
         let post_data: Post = json.data;
