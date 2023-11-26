@@ -20,28 +20,26 @@ const SortByCuisine: React.FC = () => {
   
   // Change the prompt text and image if it's the create post route
   useEffect(() => {
-    if (isCreatePostRoute) {
-      setPrompt({
-        title: "How to Post?",
-        imageUrl: "path-to-guide-image.jpg",
-        altText: "Guide Image Alt Text",
-      });
-    } 
-    else if (isProfile) {
+    if (isProfile) {
       setPrompt({
         title: "Check out these Cuisines",
         imageUrl: "path-to-guide-image.jpg",
         altText: "Guide Image Alt Text",
       });
-    }
-    else {
+    } else if (isCreatePostRoute) {
+      setPrompt({
+        title: "How to Post?",
+        imageUrl: "path-to-guide-image.jpg",
+        altText: "Guide Image Alt Text",
+      });
+    } else {
       setPrompt({
         title: "Sort By Cuisine",
         imageUrl: "path-to-spaghetti-image.jpg",
         altText: "Spaghetti",
       });
     }
-  }, [isCreatePostRoute]);
+  }, [isCreatePostRoute, isProfile]);
 
   if (isCompetitionRoute || isLogin || isRegister ) {
     return null; // or return a different component, message, etc.
