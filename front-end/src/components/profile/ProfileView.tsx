@@ -4,10 +4,9 @@ import { Post } from "../types/Post";
 import authService from "../../services/auth.service";
 import { useNavigate, Link } from "react-router-dom";
 
-export default function ProfileView(props: {
-  loggedIn: boolean;
-  setLoggedIn: Function;
-}) {
+const ProfileView: React.FC<{ loggedIn: boolean; setLoggedIn: Function }> = (
+  props
+) => {
   let navigate = useNavigate();
   const [userPosts, setUserPosts] = useState<Array<Post>>([]);
   const [username, setUsername] = useState<string>("");
@@ -86,7 +85,7 @@ export default function ProfileView(props: {
       // Update the user's profile with the new image URL
       // This assumes that the backend returns the image URL in the response
       setPreviewImage(response.data.imageUrl);
-
+      window.location.reload();
       // Optionally, you can update the user's profile in the database as well
       // This would depend on your backend implementation
       // Example: await updateProfile({ imageUrl: response.data.imageUrl });
@@ -104,7 +103,7 @@ export default function ProfileView(props: {
     };
     axios.get("/api/user/", headers).then((res) => {
       let json = res.data.data;
-      console.log(json);
+      
       setUsername(json.username);
       setEmail(json.email);
       setCreationDate(json.CreatedAt);
@@ -112,7 +111,7 @@ export default function ProfileView(props: {
     });
     axios.get("/api/user/posts", headers).then((res) => {
       let json = res.data.data;
-      console.log(json);
+      
       setUserPosts(json);
     });
   }, []);
@@ -172,25 +171,33 @@ export default function ProfileView(props: {
             </div>
             <div className="h-54 rounded shadow-lg m-2 border-2 p-2 border-slate-700">
               <div className="img-wrap img-upload">
-                <img
-                  src={
-                    previewImage ||
-                    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                  }
-                  alt="Profile"
-                />
-              </div>
+              <label
+                htmlFor="photo-upload"
+                className="cursor-pointer text-gray-500 flex items-center justify-center w-full h-40 rounded border-solid border-2 border-gray-300"
+              >
+                {previewImage ? (
+                  <img
+                    src={previewImage}
+                    alt="Profile"
+                    className="w-full h-full object-cover rounded"
+                  />
+                ) : (
+                  <span>{previewImage ? "Change Image" : "Click to Upload"}</span>
+                )}
+              </label>
               <input
                 id="photo-upload"
                 type="file"
                 onChange={handleImageSelection}
+                className="hidden"
               />
-              <button
-                onClick={handleImageUpload}
-                className="bg-amber-500 w-14 rounded overflow-hidden shadow-lg m-2"
-              >
-                Save
-              </button>
+                <button
+                  onClick={handleImageUpload}
+                  className="bg-amber-500 rounded overflow-hidden shadow-lg m-2 flex-grow"
+                >
+                  Save Profile Picture
+                </button>
+              </div>
             </div>
             <div className="h-54 rounded shadow-lg m-2 border-2 p-2 border-slate-700">
               <div className="font-sans">Username: {username}</div>
@@ -223,4 +230,6 @@ export default function ProfileView(props: {
   } else {
     return <div>Please log-in to view profile!</div>;
   }
-}
+};
+
+export default ProfileView;

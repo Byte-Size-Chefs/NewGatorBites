@@ -44,7 +44,7 @@ export default function Register(props: {
     setInputPassWordClassName(
       "text-sm text-gray-base w-full mr-3 py-5 px-11 h-2 border border-gray-200 rounded mb-2 overflow-hidden shadow-lg"
     );
-    console.log("submitting: " + username + ", " + password + ", " + email);
+    
 
     await registerSchema
       .validate({ username: username, password: password, email: email })

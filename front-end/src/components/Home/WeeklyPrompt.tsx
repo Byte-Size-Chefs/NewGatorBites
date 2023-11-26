@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from "react";
 import spaguettiPicture from "../Image/spaguetti.jpg";
-import { Link } from "react-router-dom";
+import { Link , useLocation } from "react-router-dom";
 
 const WeeklyPrompt: React.FC = () => {
+  const location = useLocation();
   const [prompt, setPrompt] = useState({
     title: "This Week's Prompt: Pasta!",
     imageUrl: spaguettiPicture,
     altText: "Spaghetti",
   });
+  const isLogin = location.pathname === "/profile/login";
+  const isRegister = location.pathname === "/profile/register";
 
+  if ( isLogin || isRegister) {
+    return null; // or return a different component, message, etc.
+  }
   return (
     <div className="pt-20  p-4 rounded-md flex flex-col w-1/5">
       <div className="sticky top-20  p-6  max-w-md rounded-md shadow mx-auto flex flex-col items-center">

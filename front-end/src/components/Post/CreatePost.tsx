@@ -15,6 +15,11 @@ const postTitleClassName = "text-sm text-gray-base w-96 border rounded m-2";
 const selectionClassName =
   "inline-flex w-2/3 m-2 justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold w-36 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50";
 const postRespo = "Post Submitted!";
+const fileInputLabelStyle =
+  "cursor-pointer text-gray-500 flex items-center justify-center w-full h-40 rounded border-solid border-2 border-gray-300";
+
+  const fileInputStyle =
+  "hidden appearance-none relative block w-full h-full cursor-pointer";
 export default function CreatePost(props: { loggedIn: boolean }) {
   const [title, setTitle] = useState<string>("");
   const [body, setBody] = useState<string>("");
@@ -31,7 +36,6 @@ export default function CreatePost(props: { loggedIn: boolean }) {
     fetch("/api/categories")
       .then((res) => res.json())
       .then((json) => {
-        // console.log(json);
         let category_data: Category[] = json.data;
         setCategories(category_data);
       });
@@ -39,7 +43,6 @@ export default function CreatePost(props: { loggedIn: boolean }) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // console.log(category);
     setPostResponse(postRespo);
     setPostAffirm(
       "font-medium tracking-wide text-green-500 text-xs mt-1 ml-2 invisible"
@@ -67,7 +70,6 @@ export default function CreatePost(props: { loggedIn: boolean }) {
         formData.append("image", post.image, post.image.name);
       }
 
-      // console.log(formData);
       const headers = {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -78,7 +80,6 @@ export default function CreatePost(props: { loggedIn: boolean }) {
       axios
         .post("/api/user/createpost", formData, headers)
         .then((res) => {
-          // console.log(res);
           setPostAffirm(
             " font-medium tracking-wide text-green-500 text-xs mt-1 ml-2 visible"
           );
@@ -88,22 +89,20 @@ export default function CreatePost(props: { loggedIn: boolean }) {
           setPreviewImage(null);
         });
     } else {
-      // console.log("Not logged in");
+      // Handle not logged in case if needed
     }
   };
 
-  const html_categories = categories.map((category, i) => {
-    return (
-      <option key={category.id} value={category.title}>
-        {category.title}
-      </option>
-    );
-  });
+  const html_categories = categories.map((category, i) => (
+    <option key={category.id} value={category.title}>
+      {category.title}
+    </option>
+  ));
+
   const handleImageSelection = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
       setSelectedImage(selectedFile);
-      // Display a preview of the selected image
       const reader = new FileReader();
       reader.onload = (event: ProgressEvent<FileReader>) => {
         if (event.target) {
@@ -155,18 +154,27 @@ export default function CreatePost(props: { loggedIn: boolean }) {
             </option>
             {html_categories}
           </select>
-          <input
-            type="file" // Add this input for file selection
-            accept="image/*" // Specify the accepted file types (e.g., images)
-            onChange={(e) => handleImageSelection(e)}
-          />
-          {previewImage && (
-            <img
-              src={previewImage}
-              alt="Selected Image"
-              className="w-40 h-40 rounded mt-3"
-            />
-          )}
+<br></br>
+<br></br>
+          <label htmlFor="fileInput" className={fileInputLabelStyle}>
+  {previewImage ? (
+    <img
+      src={previewImage}
+      alt="Selected Image"
+      className="w-full h-full object-cover rounded"
+    />
+  ) : (
+    <span>{previewImage ? "Change Image" : "Click to Upload"}</span>
+  )}
+</label>
+<input
+  type="file"
+  id="fileInput"
+  accept="image/*"
+  className={fileInputStyle}
+  onChange={(e) => handleImageSelection(e)}
+/>
+<br></br>
           <button
             className="bg-amber-500 w-full rounded mb-1 text-white "
             data-cy="post-submit-button"
