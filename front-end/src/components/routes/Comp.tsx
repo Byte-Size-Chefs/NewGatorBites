@@ -23,41 +23,30 @@ export default function Comp(props: { loggedIn: boolean }) {
         setCategories(category_data);
       });
     fetch("/api/competition-view")
-    .catch(error => {
-      console.error('Error logging visit to competition page:', error);
-    });
+      .catch((error) => {
+        console.error('Error logging visit to competition page:', error);
+      });
   }, []);
 
-  // Filter posts to include only those in the "Events" category
   const eventsPosts = posts.filter((post) => post.category === "Events");
-
-  // Create HTML for events posts
   const html_events = eventsPosts.map((post, i) => {
     let outline_color = i % 2 === 0 ? "border-sky-500" : "border-orange-500";
     return <PostCard post={post} color={outline_color} />;
   });
 
   return (
-    <div className="pt-20 flex flex-col overflow-hidden h-full p-2">
-      <div className="max-w-7xl mx-auto gap-2 h-full overflow-hidden grid grid-cols-12">
-        <div className="col-start-7 col-span-6 h-full overflow-y-auto -ml-28">
-          <div
-            data-cy="events-tab"
-            className="text-center text-xl font-bold text-white"
-          >
-            Events
-          </div>
-          <div className="w-[600px] gap-y-1 flex flex-col">{html_events}</div>
-        </div>
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-4 right-1/4 mr-[-90px] bg-amber-500 text-slate-900 rounded-full hover:scale-105 duration-500 flex items-center justify-center"
-          style={{ width: "40px", height: "40px", padding: "5px" }}
-        >
-          ↑
-        </button>
+    <div className="pt-20 flex flex-col items-center justify-center text-white mx-auto">
+      <div className="text-center text-xl font-bold mb-4">Events</div>
+      <div className="grid grid-cols-1 gap-2 content-center w-[600px]">
+        {html_events}
       </div>
-      <br />
+      <button
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        className="fixed bottom-4 right-1/4 bg-amber-500 text-slate-900 rounded-full hover:scale-105 duration-500 flex items-center justify-center"
+        style={{ width: "40px", height: "40px", padding: "5px" }}
+      >
+        ↑
+      </button>
     </div>
   );
 }

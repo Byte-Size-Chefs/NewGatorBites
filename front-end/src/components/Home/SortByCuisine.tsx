@@ -32,16 +32,22 @@ const SortByCuisine: React.FC = () => {
         imageUrl: "path-to-guide-image.jpg",
         altText: "Guide Image Alt Text",
       });
-    } else {
+    } else if (isCompetitionRoute) {
+      setPrompt({
+        title: "Join the Competition!",
+        imageUrl: "path-to-guide-image.jpg",
+        altText: "Guide Image Alt Text",
+      });
+    }else {
       setPrompt({
         title: "Sort By Cuisine",
         imageUrl: "path-to-spaghetti-image.jpg",
         altText: "Spaghetti",
       });
     }
-  }, [isCreatePostRoute, isProfile]);
+  }, [isCreatePostRoute, isProfile, isCompetitionRoute]);
 
-  if (isCompetitionRoute || isLogin || isRegister ) {
+  if ( isLogin || isRegister ) {
     return null; // or return a different component, message, etc.
   }
 
@@ -61,6 +67,11 @@ const SortByCuisine: React.FC = () => {
           <li>Step 3: Add a category for cuisine or if it is for the competition choose "Events".</li>
           <li>Step 4: Click the "Submit" button to share your post with the community.</li>
         </ol>
+      </div>
+    ) : isCompetitionRoute ? (
+      <div className="text-white text-center mb-4">
+        <p>Make a post related to the prompt and get a chance to win prizes. The post with the highest upvotes wins!</p>
+        {/* Add more competition-specific content if needed */}
       </div>
     ) : (
       <div className="flex flex-col w-36">

@@ -11,13 +11,13 @@ const WeeklyPrompt: React.FC = () => {
   });
   const isLogin = location.pathname === "/profile/login";
   const isRegister = location.pathname === "/profile/register";
-
+  const isCompetition = location.pathname === "/competition";
   if ( isLogin || isRegister) {
     return null; // or return a different component, message, etc.
   }
   return (
-    <div className="pt-20  p-4 rounded-md flex flex-col w-1/5">
-      <div className="sticky top-20  p-6  max-w-md rounded-md shadow mx-auto flex flex-col items-center">
+    <div className="pt-20 p-4 rounded-md flex flex-col w-1/5">
+      <div className="sticky top-20 p-6 max-w-md rounded-md shadow mx-auto flex flex-col items-center">
         <h3 className="text-xl font-semibold text-white mb-2 border-b border-amber-500 pb-2 text-center">
           {prompt.title}
         </h3>
@@ -28,13 +28,15 @@ const WeeklyPrompt: React.FC = () => {
             alt={prompt.altText}
           />
         </div>
-        <div className="flex justify-center mt-4">
-          <Link to="/competition">
-            <button className="bg-sky-600 text-white px-4 py-2 rounded hover:scale-105 duration-500">
-              Check out the competition!
-            </button>
-          </Link>
-        </div>
+        {!isCompetition && (
+          <div className="flex justify-center mt-4">
+            <Link to="/competition">
+              <button className="bg-sky-600 text-white px-4 py-2 rounded hover:scale-105 duration-500">
+                Check out the competition!
+              </button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
