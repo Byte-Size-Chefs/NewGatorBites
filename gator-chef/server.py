@@ -1,26 +1,34 @@
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.llms import LlamaCpp
-from flask import Flask, request
+from flask import Flask, request, jsonify
+from flask_wtf.csrf import CSRFProtect
+import re
 
 app = Flask(__name__)
+csrf = CSRFProtect()
+csrf.init_app(app)
 callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
 
 llm = LlamaCpp(
     model_path="orca-2-13b.Q2_K.gguf",
     n_ctx=5000,
     n_batch=32,
-    max_tokens=512, # Increase it if you need more tokens (words) in the output
-    #n_gpu_layers=2, # uncomment this line if you have 2 GPUs
-    f16_kv=True,  # MUST set to True, otherwise you will run into problem after a couple of calls
+    max_tokens=512,  # Adjust as needed
+    # n_gpu_layers=2,  # Uncomment if using 2 GPUs
+    f16_kv=True,  # Essential for memory efficiency
     callback_manager=callback_manager,
-    stop=["[/ANSWER]", "\n\n\n", "(((((", "11111", "0000"],  # stop generating just before the model would generate a new question
+    stop=["[/ANSWER]", "\n\n\n", "(((((", "11111", "0000"],
     verbose=True
 )
 
+def validate_food_input(food):
+    if not re.match("^[a-zA-Z0-9 ]*$", food):
+        return False
+    return True
+
 def get_output(food):
-    output = llm(
-"""
+    output = llm("""
 [QUESTION]
 You are a personal assistant and a professional chef who knows all the recipes.
 Here is your task: Share with us the perfect recipe to make {}.
@@ -37,10 +45,17 @@ Be concise and answer in plain text. Start your answer with the [ANSWER] tag and
 @app.route('/get_recipe', methods=['GET'])
 def get_recipe():
     food = request.args.get('food', default='', type=str)
-    if food:
-        return get_output(food)
-    else:
-        return "No food specified"
+    if not food:
+        return jsonify({"error": "No food specified"}), 400
+
+    if not validate_food_input(food):
+        return jsonify({"error": "Invalid input"}), 400
+
+    try:
+        recipe_output = get_output(food)
+        return jsonify({"recipe": recipe_output})
+    except Exception as e:
+        return jsonify({"error": "An error occurred processing your request"}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
