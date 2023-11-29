@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import spaguettiPicture from "../Image/spaguetti.jpg";
+import thanksgiving from "../Image/thanksgiving-hero.jpg";
 import { Link , useLocation } from "react-router-dom";
 
 const WeeklyPrompt: React.FC = () => {
   const location = useLocation();
   const [prompt, setPrompt] = useState({
-    title: "This Week's Prompt: Pasta!",
-    imageUrl: spaguettiPicture,
-    altText: "Spaghetti",
+    title: "This Week's Prompt: Thanksgiving!",
+    imageUrl: thanksgiving,
+    altText: "thanksgiving",
   });
   const isLogin = location.pathname === "/profile/login";
   const isRegister = location.pathname === "/profile/register";
