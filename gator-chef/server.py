@@ -1,11 +1,15 @@
+from flask import Flask, request, jsonify
+from flask_cors import CORS  # Import CORS
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.llms import LlamaCpp
-from flask import Flask, request, jsonify
 from flask_wtf.csrf import CSRFProtect
 import re
 
 app = Flask(__name__)
+
+CORS(app)  # This will allow CORS for all routes and methods
+
 csrf = CSRFProtect()
 csrf.init_app(app)
 callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
@@ -15,7 +19,7 @@ llm = LlamaCpp(
     n_ctx=5000,
     n_batch=32,
     max_tokens=512,  # Adjust as needed
-    # n_gpu_layers=2,  # Uncomment if using 2 GPUs
+    n_gpu_layers=2,  # Uncomment if using 2 GPUs
     f16_kv=True,  # Essential for memory efficiency
     callback_manager=callback_manager,
     stop=["[/ANSWER]", "\n\n\n", "(((((", "11111", "0000"],

@@ -23,6 +23,7 @@ const fileInputLabelStyle =
 export default function CreatePost(props: { loggedIn: boolean }) {
   const [title, setTitle] = useState<string>("");
   const [body, setBody] = useState<string>("");
+  const [recipe, setRecipe] = useState<string>("");
   const [category, setCategory] = useState<string>("");
   const [categories, setCategories] = useState<Array<Category>>([]);
   const [postAffirm, setPostAffirm] = useState<string>(
@@ -63,15 +64,30 @@ export default function CreatePost(props: { loggedIn: boolean }) {
       );
       return; // Exit the function if no image is selected
     }
-  
+    let fetchedRecipe = '';
+  // Fetch recipe based on the title
+  if (title.trim()) {
+    try {
+      const response = await axios.get(`http://localhost:5000/get_recipe?food=${encodeURIComponent(title)}`);
+      fetchedRecipe = response.data.recipe;
+      console.log(response.data);
+      console.log(recipe);
+      setRecipe(recipe)
+    } catch (error) {
+      console.error('Error fetching recipe:', error);
+      // Handle error (e.g., set an error message state and return)
+      return;
+    }
+  }
+
     if (token !== null) {
       const post: post_input = {
         title: title,
-        body: body,
+        body: fetchedRecipe,
         category: category,
         image: selectedImage,
       };
-
+      console.log(body);
       const formData = new FormData();
       formData.append("title", post.title);
       formData.append("body", post.body);
