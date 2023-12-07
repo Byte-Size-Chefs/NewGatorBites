@@ -22,15 +22,14 @@ export default function Comp(props: { loggedIn: boolean }) {
         let category_data: Category[] = json.data;
         setCategories(category_data);
       });
-    fetch("/api/competition-view")
-      .catch((error) => {
-        console.error('Error logging visit to competition page:', error);
-      });
+    fetch("/api/competition-view").catch((error) => {
+      console.error("Error logging visit to competition page:", error);
+    });
   }, []);
 
   const eventsPosts = posts.filter((post) => post.category === "Events");
   const html_events = eventsPosts.map((post, i) => {
-    let outline_color = i % 2 === 0 ? "border-sky-500" : "border-orange-500";
+    let outline_color = i % 2 === 0 ? "border-slate-700" : "border-slate-700";
     return <PostCard post={post} color={outline_color} />;
   });
 
